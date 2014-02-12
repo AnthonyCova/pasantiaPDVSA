@@ -10,6 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sisup.utilidades.Configuracion;
 
 /**
  *
@@ -40,12 +43,12 @@ public class Conexion {
     //(meter los datos correspondientes)
     public Conexion() {
         //poner los datos apropiados
-        this.usuario = "usuario";
-        this.clave = "clave";
-        this.url = "xxxx:xxxx://url:puerto/lugar";
-        this.driverClassName = "el.driver.de.la.base.datos";
+        this.usuario = Configuracion.getInstance().getProperty(Configuracion.USUARIODB);
+        this.clave = Configuracion.getInstance().getProperty(Configuracion.CONTRASENADB);
+        this.url = "jdbc:mysql://"+Configuracion.getInstance().getProperty(Configuracion.SERVIDORDB)+Configuracion.getInstance().getProperty(Configuracion.PUERTODB)+"/"+Configuracion.getInstance().getProperty(Configuracion.NOMBREDB);
+        this.driverClassName = Configuracion.getInstance().getProperty(Configuracion.DRIVERDB);
     }
- 
+    
     //metodos para recuperar los datos de conexion
     public String getClave() {
         return clave;
@@ -89,26 +92,38 @@ public class Conexion {
  
 //la conexion propiamente dicha
  
-    public void conectar() throws SQLException {
+    public void conectar(){
         try {
+            System.out.println(url);
             Class.forName(this.driverClassName).newInstance();
             this.conn = DriverManager.getConnection(this.url, this.usuario, this.clave);
- 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException err) {
             System.out.println("Error " + err.getMessage());
         }
     }
     //Cerrar la conexion
  
-    public void cierraConexion() throws SQLException {
-        this.conn.close();
+    public void cierraConexion() {
+        try {
+            this.conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
  
 //METODOS PARA TRABAJAR CON LA BASE DE DATOS
  
-    public ResultSet consulta(String consulta) throws SQLException {
-        this.estancia = (Statement) conn.createStatement();
-        return this.estancia.executeQuery(consulta);
+    public ResultSet consulta(String consulta) {
+        ResultSet resultSet=null;
+        try {
+            this.estancia = (Statement) conn.createStatement();
+            resultSet=this.estancia.executeQuery(consulta);
+            return resultSet;
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            return resultSet;
+        }
     }
  
     public void actualizar(String actualiza) throws SQLException {
@@ -121,9 +136,18 @@ public class Conexion {
         return (ResultSet) st.executeQuery(borra);
     }
  
-    public int insertar(String inserta) throws SQLException {
-        Statement st = (Statement) this.conn.createStatement();
-        return st.executeUpdate(inserta);
+    public int insertar(String inserta)  {
+        int resultado=-1;
+        try {
+            Statement st = (Statement) this.conn.createStatement();
+            resultado =st.executeUpdate(inserta);
+            return resultado;
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            resultado =-2;
+        }finally{
+            return resultado;
+        }
     }
  
 }
