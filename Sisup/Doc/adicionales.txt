@@ -1,0 +1,16 @@
+DATOS ADICIONALES
+
+TAMAÑO FRAME PRINCIPAL
+[828, 470]
+
+TAMAÑO FRAME SECUNDARIO
+
+
+NOTAS
+*Verificar al cerrar sesion que no haya reportes pendientes
+Caso borde: al cerrar sesion finaliza la responsabilidad del operador
+y comienza el proximo turno
+Verificar reportes pendientes al iniciar sesion.
+
+Agregar descripción de Bomba al generar el reporte
+

@@ -4,19 +4,25 @@
  * and open the template in the editor.
  */
 
-package sisup;
+package sisup.ui;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JOptionPane;
+import sisup.controladores.Login;
 
 /**
  *
  * @author Liz
  */
-public class Login extends javax.swing.JFrame {
+public class UILogin extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public UILogin() {
         initComponents();
+        inicializarComponentes();
     }
 
     /**
@@ -41,7 +47,10 @@ public class Login extends javax.swing.JFrame {
         txt_clave = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 500));
+
+        pnl_body.setOpaque(false);
+
+        pnl_header.setOpaque(false);
 
         lbl_titulo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(204, 0, 0));
@@ -53,16 +62,18 @@ public class Login extends javax.swing.JFrame {
             pnl_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_titulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnl_headerLayout.setVerticalGroup(
             pnl_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_titulo)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pnl_content.setOpaque(false);
 
         lbl_bienvenido.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         lbl_bienvenido.setForeground(new java.awt.Color(255, 255, 255));
@@ -70,13 +81,27 @@ public class Login extends javax.swing.JFrame {
 
         pnl_info.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
-        txt_usuario.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
         txt_usuario.setText("USUARIO");
-        txt_usuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txt_usuario.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt_usuario.setName(""); // NOI18N
+        txt_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                onClickUsuario(evt);
+            }
+        });
         txt_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_usuarioActionPerformed(evt);
+            }
+        });
+        txt_usuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                onExitUsuario(evt);
+            }
+        });
+        txt_usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_usuarioKeyPressed(evt);
             }
         });
 
@@ -84,7 +109,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/usuario.png"))); // NOI18N
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/clave_1.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/clave.png"))); // NOI18N
 
         btn_ingresar.setText("Ingresar");
         btn_ingresar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +119,17 @@ public class Login extends javax.swing.JFrame {
         });
 
         txt_clave.setText("jPasswordField1");
+        txt_clave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt_clave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_claveActionPerformed(evt);
+            }
+        });
+        txt_clave.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                onClickClave(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_infoLayout = new javax.swing.GroupLayout(pnl_info);
         pnl_info.setLayout(pnl_infoLayout);
@@ -124,10 +160,12 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(txt_usuario))
                 .addGap(14, 14, 14)
-                .addGroup(pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_clave))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_clave)
+                    .addGroup(pnl_infoLayout.createSequentialGroup()
+                        .addGap(0, 5, Short.MAX_VALUE)
+                        .addComponent(jLabel4)))
+                .addGap(18, 18, 18)
                 .addComponent(btn_ingresar)
                 .addContainerGap())
         );
@@ -141,19 +179,16 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(lbl_bienvenido)
                 .addGap(18, 18, 18)
                 .addComponent(pnl_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnl_contentLayout.setVerticalGroup(
             pnl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_contentLayout.createSequentialGroup()
+                .addGap(121, 121, 121)
                 .addGroup(pnl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_contentLayout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(lbl_bienvenido))
-                    .addGroup(pnl_contentLayout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(pnl_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(145, Short.MAX_VALUE))
+                    .addComponent(pnl_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_bienvenido))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnl_bodyLayout = new javax.swing.GroupLayout(pnl_body);
@@ -186,14 +221,44 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
-        Dashboard dashboard = new Dashboard();
-        this.setVisible(false);
-        dashboard.setVisible(true);
+        if (ValidarCampos() && login.ValidarDatosLogin(txt_usuario.getText().toString(),txt_clave.getPassword().toString())){
+            uiDashboard = new UIDashboard();
+            uiDashboard.setVisible(true);
+            /*UIMantenimientos2 m = new UIMantenimientos2();
+            m.setVisible(true);*/
+            this.setVisible(false);
+            //login.MostrarDashboard();
+        } 
+        else MostrarMensajeError();
+        
     }//GEN-LAST:event_btn_ingresarActionPerformed
 
     private void txt_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuarioActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txt_usuarioActionPerformed
+
+    private void txt_claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_claveActionPerformed
+        txt_clave.setText("");
+    }//GEN-LAST:event_txt_claveActionPerformed
+
+    private void onClickUsuario(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onClickUsuario
+        if(txt_usuario.getText().equals("USUARIO"))
+            txt_usuario.setText("");
+    }//GEN-LAST:event_onClickUsuario
+
+    private void onExitUsuario(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_onExitUsuario
+        if(txt_usuario.getText().equals(""))
+            txt_usuario.setText("USUARIO");
+    }//GEN-LAST:event_onExitUsuario
+
+    private void onClickClave(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_onClickClave
+        txt_clave.setText("");
+    }//GEN-LAST:event_onClickClave
+
+    private void txt_usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyPressed
+        if(txt_usuario.getText().equals("USUARIO"))
+            txt_usuario.setText("");
+    }//GEN-LAST:event_txt_usuarioKeyPressed
 
     /**
      * @param args the command line arguments
@@ -212,20 +277,20 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UILogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UILogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UILogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UILogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new UILogin().setVisible(true);
             }
         });
     }
@@ -263,4 +328,36 @@ public void paint(Graphics g) {
     private javax.swing.JPasswordField txt_clave;
     private javax.swing.JTextField txt_usuario;
     // End of variables declaration//GEN-END:variables
+    //Variables Logica
+    Login login = new Login();
+    UIDashboard uiDashboard;
+    
+    //Imagenes de fondo
+    ImagenPanel fondoHeader;
+    ImagenPanel fondoContent;
+
+    private boolean ValidarCampos() {
+        return !(txt_usuario.getText().equals("") || txt_usuario.getText().equals("USUARIO"));
+    }
+    
+    public void MostrarMensajeError(){
+        JOptionPane.showMessageDialog(null, "Datos Inválidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void inicializarComponentes() {
+        fondoHeader = new ImagenPanel("/sisup/recursos/fondoTitulo.png");
+        fondoHeader.setSize(new Dimension(704, 44));
+        fondoHeader.setVisible(true);
+        //fondoHeader.setLayout(new FlowLayout());
+                
+        fondoContent = new ImagenPanel("/sisup/recursos/ypf-noche.jpg");
+        fondoContent.setSize(new Dimension(704, 427));
+        fondoContent.setVisible(true);
+        
+        pnl_body.add(fondoHeader);
+        pnl_body.add(fondoContent);
+
+        fondoHeader.add(pnl_header);
+        fondoContent.add(pnl_content);
+    }
 }

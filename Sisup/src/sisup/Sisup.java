@@ -4,6 +4,8 @@
  */
 package sisup;
 
+import sisup.ui.UILogin;
+
 /**
  *
  * @author Tony
@@ -14,7 +16,7 @@ public class Sisup {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hola");
-        // TODO code application logic here
+        UILogin uiLogin = new UILogin();
+        uiLogin.setVisible(true);
     }
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package sisup;
+package sisup.ui;
 
 import java.awt.Paint;
 import javax.swing.BorderFactory;
@@ -13,12 +13,12 @@ import javax.swing.BorderFactory;
  *
  * @author Liz
  */
-public class NuevoReporte extends javax.swing.JInternalFrame {
+public class UIVerReporte extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NuevoReporte
      */
-    public NuevoReporte() {
+    public UIVerReporte() {
         initComponents();
     }
 
@@ -52,7 +52,6 @@ public class NuevoReporte extends javax.swing.JInternalFrame {
         txt_ScrollObservacion = new javax.swing.JScrollPane();
         txt_observacion = new javax.swing.JTextArea();
         pnl_accion = new javax.swing.JPanel();
-        btn_generarReporte = new javax.swing.JButton();
         btn_salir = new javax.swing.JButton();
 
         setClosable(true);
@@ -60,7 +59,7 @@ public class NuevoReporte extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(700, 400));
 
         lbl_NuevoReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/nuevoReporte.png"))); // NOI18N
-        lbl_NuevoReporte.setText("Nuevo Reporte");
+        lbl_NuevoReporte.setText("Visualizar Reporte");
 
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
         pnl_titulo.setLayout(pnl_tituloLayout);
@@ -190,13 +189,6 @@ public class NuevoReporte extends javax.swing.JInternalFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        btn_generarReporte.setText("jButton1");
-        btn_generarReporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_generarReporteActionPerformed(evt);
-            }
-        });
-
         btn_salir.setText("jButton2");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,8 +202,6 @@ public class NuevoReporte extends javax.swing.JInternalFrame {
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_accionLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_generarReporte)
-                .addGap(18, 18, 18)
                 .addComponent(btn_salir)
                 .addContainerGap())
         );
@@ -219,9 +209,7 @@ public class NuevoReporte extends javax.swing.JInternalFrame {
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_accionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_generarReporte)
-                    .addComponent(btn_salir))
+                .addComponent(btn_salir)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -270,17 +258,12 @@ public class NuevoReporte extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_reportaActionPerformed
 
-    private void btn_generarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generarReporteActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_btn_generarReporteActionPerformed
-
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btn_salirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_generarReporte;
     private javax.swing.JButton btn_salir;
     private javax.swing.JComboBox cmb_causa;
     private javax.swing.JComboBox cmb_reporta;
