@@ -30,7 +30,13 @@ Properties properties = null;
     public final static String DRIVERDB = "driverDB";
     /** Data base puerto */
     public final static String PUERTODB = "puertoDB";
- 
+    /** Arbol LDAP */
+    public final static String BASELDAP = "baseLDAP";
+    /** URL LDAP */
+    public final static String URLLDAP = "urlLDAP";
+    /** FLAG LDAP */
+    public final static String FLAGLDAP = "ldap";
+    
     private Configuracion() {
         this.properties = new Properties();
         try {

@@ -9,8 +9,8 @@ package sisup.baseDatos;
  */
 public class Consultas {
     
-    public static java.sql.ResultSet acceso(String usuario, String password){
-            String sql= String.format("Select idusuario, nombre, rol from usuario where usuario='%s' and contrasena='%s' and estatus=1;", usuario,password);
+    public static java.sql.ResultSet acceso(String login){
+            String sql= String.format("Select idusuario, nombre, rol, cedula, cargo, correo from usuario where login='%s' and estatus=1;", login);
             Conexion conexion = new Conexion();
             java.sql.ResultSet resultado;
             conexion.conectar();
@@ -20,7 +20,7 @@ public class Consultas {
     }
     
     public static java.sql.ResultSet  obtenerUsuarios(){
-            String sql= "Select idusuario, nombre, rol from usuario;";
+            String sql= "Select idusuario, nombre, rol, login, cedula, cargo, correo  from usuario;";
             Conexion conexion = new Conexion();
             java.sql.ResultSet  resultado;
             conexion.conectar();
@@ -29,8 +29,8 @@ public class Consultas {
             return resultado;  
      }
     
-     public static  int insertarUsuario(String nombre, String contrasena, String rol, String estatus){
-            String sql= String.format("insert into usuario (nombre, contrasena, rol, estatus) values('%s','%s','%s','%s'); ", nombre,contrasena,rol,estatus);
+     public static  int insertarUsuario(String nombre, String login, String rol, String estatus, String cedula, String cargo, String correo){
+            String sql= String.format("insert into usuario (nombre, contrasena, rol, estatus, cedula, cargo, correo) values('%s','%s','%s','%s','%s','%s','%s'); ", nombre,login,rol,estatus,cedula, cargo, correo);
             Conexion conexion = new Conexion();
             int resultado;
             conexion.conectar();
@@ -40,8 +40,8 @@ public class Consultas {
     }
      
          
-    public static int  actualizarUsuario(String nombre, String contrasena, String rol, String estatus ,String id){
-            String sql= String.format("Update  usuario set nombre='%s', contrasena='%s' , rol='%s' , estatus='%s' where idusuario=%s; ", nombre, contrasena,rol,estatus ,id);
+    public static int  actualizarUsuario(String nombre, String login, String rol, String estatus ,String id, String cedula, String cargo, String correo){
+            String sql= String.format("Update  usuario set nombre='%s', login='%s' , rol='%s' , estatus='%s' ,cedula='%s' , cargo= '%s', correo='%s' where idusuario=%s; ", nombre, login,rol,estatus ,id,cedula, cargo, correo);
             Conexion conexion = new Conexion();
             int resultado;
             conexion.conectar();
