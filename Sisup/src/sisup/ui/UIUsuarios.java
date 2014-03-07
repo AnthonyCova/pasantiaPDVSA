@@ -6,23 +6,38 @@
 
 package sisup.ui;
 
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import sisup.controladores.Usuarios;
 
 /**
  *
  * @author Liz
  */
 public class UIUsuarios extends javax.swing.JPanel {
-    private UIDashboard padre;
+    private final UIDashboard padre;
     private UIAgregarUsuario uiAgregarUsuario;
+    private Usuarios usuarios;
+    private JTable __table;
+    private JScrollPane __scrollPane;
+    
+    private DefaultTableModel dtm;
 
     /**
      * Creates new form UIUsuarios
+     * @param padre
      */
     public UIUsuarios(final UIDashboard padre) {
         super();
         this.padre = padre;
         initComponents();
+        inicializarComponentes();
+        CargarTablaUsuarios();
     }
 
     /**
@@ -39,7 +54,7 @@ public class UIUsuarios extends javax.swing.JPanel {
         lbl_administrarUsuarios = new javax.swing.JLabel();
         pnl_content = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_usuarios = new javax.swing.JTable();
         pnl_accion = new javax.swing.JPanel();
         btn_atras = new javax.swing.JButton();
         btn_agregar = new javax.swing.JButton();
@@ -69,9 +84,8 @@ public class UIUsuarios extends javax.swing.JPanel {
         pnl_tituloLayout.setVerticalGroup(
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_tituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_administrarUsuarios)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_administrarUsuarios))
         );
 
         pnl_content.setBackground(null);
@@ -81,18 +95,18 @@ public class UIUsuarios extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 64));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_usuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Cédula", "Cargo", "Login", "Rol", "Status", "Acción"
+                "Nombre", "Login", "Cargo", "Estatus", "Acción"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_usuarios);
 
         javax.swing.GroupLayout pnl_contentLayout = new javax.swing.GroupLayout(pnl_content);
         pnl_content.setLayout(pnl_contentLayout);
@@ -161,9 +175,11 @@ public class UIUsuarios extends javax.swing.JPanel {
         );
         pnl_accionLayout.setVerticalGroup(
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btn_atras)
-                .addComponent(btn_agregar))
+            .addGroup(pnl_accionLayout.createSequentialGroup()
+                .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_atras)
+                    .addComponent(btn_agregar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnl_usuariosLayout = new javax.swing.GroupLayout(pnl_usuarios);
@@ -208,6 +224,7 @@ public class UIUsuarios extends javax.swing.JPanel {
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         padre.uiAgregarUsuario.setBounds(padre.centrarJInternalFrame(uiAgregarUsuario.getWidth(),uiAgregarUsuario.getHeight()));
+        padre.uiAgregarUsuario.setReferenciaUsuario(this);
         padre.uiAgregarUsuario.show();
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -216,15 +233,69 @@ public class UIUsuarios extends javax.swing.JPanel {
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_atras;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_administrarUsuarios;
     private javax.swing.JPanel pnl_accion;
     private javax.swing.JPanel pnl_content;
     private javax.swing.JPanel pnl_titulo;
     public javax.swing.JPanel pnl_usuarios;
+    private javax.swing.JTable tbl_usuarios;
     // End of variables declaration//GEN-END:variables
     
-    void setUIAgregarUsuario(UIAgregarUsuario uiAgregarUsuario) {
+    public void setUIAgregarUsuario(UIAgregarUsuario uiAgregarUsuario) {
         this.uiAgregarUsuario = uiAgregarUsuario;
+    }
+
+    public void CargarTablaUsuarios() {
+        if (usuarios == null) usuarios = new Usuarios();
+        /*ArrayList<Usuario> listaUsuarios = usuarios.getListaUsuarios();
+        dtm = new DefaultTableModel(null,new String [] {"Nombre", "Login", "Cargo", "Estatus", "Acción"});
+        
+        Icon [] iconos = new Icon [3];
+ 
+        Object datos[]=new Object[5];
+        
+        /*for (Usuario usuario : listaUsuarios){
+            datos[0] = usuario.getNombre();
+            datos[1] = usuario.getLogin();
+            datos[2] = usuario.getCargo();
+            datos[3] = usuario.getEstatus();
+            JButton editar = new JButton();
+            datos[4] = editar;
+            dtm.addRow(datos);
+        } * /
+        for (int i=0; i<2; i++){
+            datos[0] = "A";
+            datos[1] = "B";
+            datos[2] = "C";
+            datos[3] = "D";
+            iconos[i] = new ImageIcon("/sisup/recursos/usuario_activo.png");
+            datos[4] = iconos[i];
+            dtm.addRow(datos);
+        } 
+        this.tbl_usuarios.setModel(dtm);*/
+    }
+    
+    Usuarios getUsuarios(){
+        return usuarios;
+    }
+
+    private void inicializarComponentes() {
+        TableCellRenderer defaultRenderer;
+
+    __table = new JTable(new JTableButtonModel());
+    defaultRenderer = __table.getDefaultRenderer(JButton.class);
+    __table.setDefaultRenderer(JButton.class,
+			       new JTableButtonRenderer(defaultRenderer));
+    __table.setPreferredScrollableViewportSize(new Dimension(400, 200));
+    
+    __table.addMouseListener(new JTableButtonMouseListener(__table));
+
+    __scrollPane = new JScrollPane(__table);
+    __scrollPane.setPreferredSize(new java.awt.Dimension(400, 200));
+    pnl_content.add(__scrollPane);
+    __scrollPane.setVisible(true);
+    __scrollPane.setViewportView(__table);
+    jScrollPane1.setVisible(false);
+    __scrollPane.setBounds(0, 0, 400, 200);
     }
 }

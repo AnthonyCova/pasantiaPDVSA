@@ -7,7 +7,12 @@
 package sisup.ui;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Image;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sisup.controladores.Login;
 
@@ -41,18 +46,20 @@ public class UILogin extends javax.swing.JFrame {
         lbl_bienvenido = new javax.swing.JLabel();
         pnl_info = new javax.swing.JPanel();
         txt_usuario = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         btn_ingresar = new javax.swing.JButton();
         txt_clave = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("/sisup/recursos/favicon.png").getImage());
+        setName("Sistema de Supervisión de Parada de Poliducto"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(708, 500));
+        setResizable(false);
 
         pnl_body.setOpaque(false);
 
         pnl_header.setOpaque(false);
 
-        lbl_titulo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbl_titulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(204, 0, 0));
         lbl_titulo.setText("SISTEMA DE SUPERVISION DE PARADA DE POLIDUCTO");
 
@@ -62,27 +69,28 @@ public class UILogin extends javax.swing.JFrame {
             pnl_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+                .addComponent(lbl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnl_headerLayout.setVerticalGroup(
             pnl_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_titulo)
+                .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnl_content.setOpaque(false);
 
-        lbl_bienvenido.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        lbl_bienvenido.setFont(new java.awt.Font("Arial", 0, 42)); // NOI18N
         lbl_bienvenido.setForeground(new java.awt.Color(255, 255, 255));
         lbl_bienvenido.setText("BIENVENIDO");
 
-        pnl_info.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        pnl_info.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        pnl_info.setOpaque(false);
 
         txt_usuario.setText("USUARIO");
-        txt_usuario.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt_usuario.setBorder(null);
         txt_usuario.setName(""); // NOI18N
         txt_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -105,13 +113,13 @@ public class UILogin extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/usuario.png"))); // NOI18N
-
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/clave.png"))); // NOI18N
-
-        btn_ingresar.setText("Ingresar");
+        btn_ingresar.setBackground(null);
+        btn_ingresar.setForeground(null);
+        btn_ingresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/btn_ingresar.png"))); // NOI18N
+        btn_ingresar.setBorder(null);
+        btn_ingresar.setBorderPainted(false);
+        btn_ingresar.setContentAreaFilled(false);
+        btn_ingresar.setFocusPainted(false);
         btn_ingresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ingresarActionPerformed(evt);
@@ -119,7 +127,7 @@ public class UILogin extends javax.swing.JFrame {
         });
 
         txt_clave.setText("jPasswordField1");
-        txt_clave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt_clave.setBorder(null);
         txt_clave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_claveActionPerformed(evt);
@@ -136,36 +144,25 @@ public class UILogin extends javax.swing.JFrame {
         pnl_infoLayout.setHorizontalGroup(
             pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_infoLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_infoLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_clave))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_infoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_infoLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btn_ingresar, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
+                            .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_infoLayout.createSequentialGroup()
+                        .addComponent(btn_ingresar)
+                        .addGap(26, 26, 26))))
         );
         pnl_infoLayout.setVerticalGroup(
             pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_infoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(txt_usuario))
-                .addGap(14, 14, 14)
-                .addGroup(pnl_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_clave)
-                    .addGroup(pnl_infoLayout.createSequentialGroup()
-                        .addGap(0, 5, Short.MAX_VALUE)
-                        .addComponent(jLabel4)))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
+                .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(txt_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(btn_ingresar)
                 .addContainerGap())
         );
@@ -174,21 +171,23 @@ public class UILogin extends javax.swing.JFrame {
         pnl_content.setLayout(pnl_contentLayout);
         pnl_contentLayout.setHorizontalGroup(
             pnl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_contentLayout.createSequentialGroup()
-                .addGap(257, 257, 257)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_contentLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_bienvenido)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addComponent(pnl_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(113, 113, 113))
         );
         pnl_contentLayout.setVerticalGroup(
             pnl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_contentLayout.createSequentialGroup()
-                .addGap(121, 121, 121)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_contentLayout.createSequentialGroup()
+                .addContainerGap(173, Short.MAX_VALUE)
                 .addGroup(pnl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnl_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_bienvenido))
-                .addContainerGap(109, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_contentLayout.createSequentialGroup()
+                        .addComponent(lbl_bienvenido)
+                        .addGap(145, 145, 145)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnl_bodyLayout = new javax.swing.GroupLayout(pnl_body);
@@ -202,8 +201,8 @@ public class UILogin extends javax.swing.JFrame {
             pnl_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_bodyLayout.createSequentialGroup()
                 .addComponent(pnl_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addComponent(pnl_content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,8 +316,6 @@ public void paint(Graphics g) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ingresar;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lbl_bienvenido;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JPanel pnl_body;
@@ -335,6 +332,7 @@ public void paint(Graphics g) {
     //Imagenes de fondo
     ImagenPanel fondoHeader;
     ImagenPanel fondoContent;
+    ImageIcon iconoFrame;
 
     private boolean ValidarCampos() {
         return !(txt_usuario.getText().equals("") || txt_usuario.getText().equals("USUARIO"));
@@ -345,19 +343,49 @@ public void paint(Graphics g) {
     }
 
     private void inicializarComponentes() {
+        /*FONDO UNO
         fondoHeader = new ImagenPanel("/sisup/recursos/fondoTitulo.png");
-        fondoHeader.setSize(new Dimension(704, 44));
+        fondoHeader.setSize(new Dimension(711, 44));
         fondoHeader.setVisible(true);
-        //fondoHeader.setLayout(new FlowLayout());
+        fondoHeader.setLayout(null);
+        pnl_header.setBounds(0, 0, 711, 44);
                 
-        fondoContent = new ImagenPanel("/sisup/recursos/ypf-noche.jpg");
-        fondoContent.setSize(new Dimension(704, 427));
+        fondoContent = new ImagenPanel("/sisup/recursos/sisor3.png");
+        fondoContent.setSize(new Dimension(710, 485));
         fondoContent.setVisible(true);
+        fondoContent.setLayout(null);
+        pnl_content.setBounds(0, 0, 710, 465);*/
         
-        pnl_body.add(fondoHeader);
+        /*FONDO DOS*/
+        /*fondoHeader = new ImagenPanel("/sisup/recursos/fondoTitulo.png");
+        fondoHeader.setSize(new Dimension(711, 46));
+        fondoHeader.setVisible(true);
+        fondoHeader.setLayout(null);
+        pnl_header.setBounds(0, 0, 711, 46);*/
+                
+        fondoContent = new ImagenPanel("/sisup/recursos/sisor4.png");
+        fondoContent.setSize(new Dimension(750, 473));
+        fondoContent.setVisible(true);
+        fondoContent.setLayout(null);
+        pnl_content.setBounds(0, 0, 750, 473);
+        
         pnl_body.add(fondoContent);
-
-        fondoHeader.add(pnl_header);
+        
         fondoContent.add(pnl_content);
+        
+        //Centrar el frame
+        this.setLocationRelativeTo(null);
+        
+        //Cambiar Icono
+        setIconImage(new ImageIcon("/sisup/recursos/favicon.png").getImage());
+        
+        Image image;
+        try {
+            image = ImageIO.read(getClass().getResource("/sisup/recursos/favicon.png"));
+            setIconImage(image);
+        } catch (IOException ex) {
+            Logger.getLogger(UILogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

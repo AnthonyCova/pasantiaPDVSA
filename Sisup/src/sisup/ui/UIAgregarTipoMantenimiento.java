@@ -6,8 +6,10 @@
 
 package sisup.ui;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -150,7 +152,7 @@ public class UIAgregarTipoMantenimiento extends javax.swing.JInternalFrame {
                     .addComponent(btn_atras)
                     .addComponent(btn_agregar)
                     .addComponent(btn_editar))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pnl_content.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del tipo de mantenimeinto"));
@@ -204,7 +206,7 @@ public class UIAgregarTipoMantenimiento extends javax.swing.JInternalFrame {
             .addGroup(pnl_agregarTipoMantenimientoLayout.createSequentialGroup()
                 .addComponent(pnl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnl_content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -271,10 +273,10 @@ public class UIAgregarTipoMantenimiento extends javax.swing.JInternalFrame {
     }
 
     private void inicializarComponentes() {
-        imagenFondo = new ImagenPanel("/sisup/recursos/ypf-noche.jpg");
+        /*imagenFondo = new ImagenPanel("/sisup/recursos/ypf-noche.jpg");
         this.add(imagenFondo);
         imagenFondo.setSize(new java.awt.Dimension(720, 232));
         imagenFondo.setVisible(true);
-        imagenFondo.add(pnl_agregarTipoMantenimiento);
+        imagenFondo.add(pnl_agregarTipoMantenimiento);*/
     }
 }

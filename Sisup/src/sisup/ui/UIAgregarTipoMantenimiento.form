@@ -61,7 +61,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="pnl_titulo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                  <Component id="pnl_accion" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="pnl_accion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pnl_content" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -133,7 +133,7 @@
                           <Component id="btn_agregar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_editar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

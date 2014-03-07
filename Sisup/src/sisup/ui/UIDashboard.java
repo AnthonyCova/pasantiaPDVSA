@@ -10,6 +10,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Rectangle;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import sisup.controladores.Dashboard;
 
 /**
@@ -181,6 +182,10 @@ public class UIDashboard extends javax.swing.JFrame {
         );
         jdp_escritorio.setLayer(pnl_principal, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        men_menu.setMaximumSize(new java.awt.Dimension(172, 32769));
+        men_menu.setPreferredSize(new java.awt.Dimension(172, 21));
+        men_menu.setRequestFocusEnabled(false);
+
         mit_Home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/home.png"))); // NOI18N
         mit_Home.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -289,8 +294,9 @@ public class UIDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_mit_usuariosActionPerformed
 
     private void mit_salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mit_salirMouseClicked
-        this.setVisible(false);
-        this.dispose();
+        //this.setVisible(false);
+        //this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_mit_salirMouseClicked
 
     private void mit_HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mit_HomeMouseClicked
@@ -405,7 +411,7 @@ public class UIDashboard extends javax.swing.JFrame {
         card.show(pnl_principal, enm_paneles.UIDASHBOARD.toString());
         
         //Definir imagen de fondo
-        imagenFondo = new ImagenPanel("/sisup/recursos/ypf-noche.jpg");
+        imagenFondo = new ImagenPanel("/sisup/recursos/fondo_principal.png");
         imagenFondo.setSize(new java.awt.Dimension(850, 500));
         imagenFondo.setVisible(true);
         jdp_escritorio.add(imagenFondo);
@@ -414,6 +420,14 @@ public class UIDashboard extends javax.swing.JFrame {
         //Definir el acceso a la administracion
         //if (sesion.usuario.rol != enum_roles.administrador)
         //mit_Administrar.setVisible(false);
+        
+        //Alineación de nombre de usuario a la derecha
+        javax.swing.JMenu mit_nombreUsuario = new javax.swing.JMenu();
+        mit_nombreUsuario.setText("Bienvenido, ");
+        men_menu.add(Box.createHorizontalGlue());
+        men_menu.add(mit_nombreUsuario);
+        
+        this.setLocationRelativeTo(null);
     }
 
     public Rectangle centrarJInternalFrame(int ancho, int alto) {

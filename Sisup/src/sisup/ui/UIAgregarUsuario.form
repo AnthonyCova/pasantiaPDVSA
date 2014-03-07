@@ -58,10 +58,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pnl_titulo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pnl_accion" min="-2" max="-2" attributes="0"/>
+                  <Component id="pnl_accion" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pnl_usuario" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -82,9 +82,8 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbl_titulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lbl_titulo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -118,10 +117,13 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btn_cerrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_agregar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_editar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btn_cerrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_agregar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_editar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -238,33 +240,42 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbl_apellidos" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_cedula" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_apellidos" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txt_cedula" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="lbl_nombres" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txt_nombres" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="txt_nombres" min="-2" pref="219" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_apellidos" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_cargo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_estatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txt_correo" max="32767" attributes="0"/>
+                                  <Component id="txt_cargo" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="cmb_estatus" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbl_cargo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_rol" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_login" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txt_login" max="32767" attributes="0"/>
-                          <Component id="txt_cargo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cmb_rol" alignment="0" pref="184" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_rol" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_login" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txt_login" max="32767" attributes="0"/>
+                                  <Component id="cmb_rol" alignment="0" pref="184" max="32767" attributes="0"/>
+                                  <Component id="txt_cedula" alignment="1" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="lbl_cedula" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="70" max="32767" attributes="0"/>
                   </Group>
@@ -283,18 +294,23 @@
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_apellidos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_apellidos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_cargo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_cargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_correo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_cedula" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_cedula" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_cedula" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_cedula" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_rol" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cmb_rol" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_cargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_cargo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbl_estatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmb_estatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -307,7 +323,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_apellidos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Apellidos:"/>
+                <Property name="text" type="java.lang.String" value="Correo:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_cedula">
@@ -335,9 +351,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_nombresActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_apellidos">
+            <Component class="javax.swing.JTextField" name="txt_correo">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_apellidosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_correoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_cedula">
@@ -350,11 +366,10 @@
             <Component class="javax.swing.JComboBox" name="cmb_rol">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="Seleccione"/>
+                    <StringItem index="1" value="Usuario"/>
+                    <StringItem index="2" value="Administrador"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -363,6 +378,21 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_loginActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_estatus">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estatus:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cmb_estatus">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="2">
+                    <StringItem index="0" value="Activo"/>
+                    <StringItem index="1" value="Desactivado"/>
+                  </StringArray>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
