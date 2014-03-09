@@ -30,7 +30,7 @@ public class Consultas {
      }
     
      public static  int insertarUsuario(String nombre, String login, String rol, String estatus, String cedula, String cargo, String correo){
-            String sql= String.format("insert into usuario (nombre, contrasena, rol, estatus, cedula, cargo, correo) values('%s','%s','%s','%s','%s','%s','%s'); ", nombre,login,rol,estatus,cedula, cargo, correo);
+            String sql= String.format("insert into usuario (nombre, login, rol, estatus, cedula, cargo, correo) values('%s','%s','%s','%s','%s','%s','%s'); ", nombre,login,rol,estatus,cedula, cargo, correo);
             Conexion conexion = new Conexion();
             int resultado;
             conexion.conectar();
