@@ -19,28 +19,14 @@ public class MetodosMantenimiento {
         return resultado;
     }
     
-        public int actualizarMantenimiento(sisup.clases.Mantenimiento mantenimiento){
+    public int actualizarMantenimiento(sisup.clases.Mantenimiento mantenimiento){
             int resultado  = sisup.baseDatos.Consultas.actualizarMantenimiento(mantenimiento.getDescripcion(), mantenimiento.getEstatus(), mantenimiento.getId());
             return resultado;
     }
     
     public java.util.ArrayList<sisup.clases.Mantenimiento>  getMantenimientos(){
         java.util.ArrayList<sisup.clases.Mantenimiento> mantenimientos = new java.util.ArrayList<>();
-        try {
-            java.sql.ResultSet resultSet;
-            resultSet = sisup.baseDatos.Consultas.obtenerMantenimientos();
-            while(resultSet.next()){
-                sisup.clases.Mantenimiento mantenimiento =new sisup.clases.Mantenimiento();
-                mantenimiento.setDescripcion(resultSet.getString("descripcion"));
-                mantenimiento.setEstatus(resultSet.getString("estatus"));
-                mantenimiento.setId(resultSet.getString("idmantenimiento"));
-                mantenimientos.add(mantenimiento);
-            }
-            return mantenimientos;
-        } catch (SQLException ex) {
-            Logger.getLogger(MetodosBomba.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            return mantenimientos;
-        }
+        mantenimientos = sisup.baseDatos.Consultas.obtenerMantenimientos();
+        return mantenimientos;
     }
 }

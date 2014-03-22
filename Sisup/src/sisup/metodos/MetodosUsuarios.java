@@ -16,30 +16,9 @@ import sisup.clases.Usuario;
 public class MetodosUsuarios {
 
     public sisup.clases.Usuario getAcceso(String login, String contrasena) {
-        sisup.clases.Usuario usuario = new Usuario();
-
-        try {
-            if (sisup.utilidades.LDAP.autenticacionLDAP(login, contrasena)) {
-                java.sql.ResultSet resultSet;
-                resultSet = sisup.baseDatos.Consultas.acceso(login);
-                while (resultSet.next()) {
-                    usuario.setNombre(resultSet.getString("nombre"));
-                    usuario.setLogin(resultSet.getString("login"));
-                    usuario.setId(resultSet.getString("idusuario"));
-                    usuario.setEstatus(resultSet.getString("estatus"));
-                    usuario.setRol(resultSet.getString("rol"));
-                    usuario.setCargo(resultSet.getString("cargo"));
-                    usuario.setCedula(resultSet.getString("cedula"));
-                    usuario.setCorreo(resultSet.getString("correo"));
-                }
-            }
-            return usuario;
-        } catch (SQLException ex) {
-            Logger.getLogger(MetodosBomba.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            return usuario;
-        }
-
+        java.util.ArrayList<sisup.clases.Usuario> usuarios = new java.util.ArrayList<>();
+        usuarios = sisup.baseDatos.Consultas.obtenerUsuarios();
+        return usuarios.get(0);
     }
 
     public int setUsuario(sisup.clases.Usuario usuario) {
@@ -60,28 +39,10 @@ public class MetodosUsuarios {
 
     }
 
-    public java.util.ArrayList<sisup.clases.Usuario> getUsuarios(String senal) {
+    public java.util.ArrayList<sisup.clases.Usuario> getUsuarios() {
         java.util.ArrayList<sisup.clases.Usuario> usuarios = new java.util.ArrayList<>();
-        try {
-            java.sql.ResultSet resultSet;
-            resultSet = sisup.baseDatos.Consultas.obtenerUsuarios();
-            while (resultSet.next()) {
-                sisup.clases.Usuario usuario = new sisup.clases.Usuario();
-                usuario.setNombre(resultSet.getString("nombre"));
-                usuario.setLogin(resultSet.getString("login"));
-                usuario.setId(resultSet.getString("idusuario"));
-                usuario.setEstatus(resultSet.getString("estatus"));
-                usuario.setRol(resultSet.getString("rol"));
-                usuario.setCargo(resultSet.getString("cargo"));
-                usuario.setCedula(resultSet.getString("cedula"));
-                usuario.setCorreo(resultSet.getString("correo"));
-                usuarios.add(usuario);
-            }
-            return usuarios;
-        } catch (SQLException ex) {
-            Logger.getLogger(MetodosBomba.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            return usuarios;
-        }
+        usuarios = sisup.baseDatos.Consultas.obtenerUsuarios();
+        return usuarios;
+
     }
 }

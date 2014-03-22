@@ -39,6 +39,6 @@ public class Usuarios {
     }
     
     public java.util.ArrayList<Usuario> getListaUsuarios(){
-        return metodosUsuarios.getUsuarios("senal");
+        return metodosUsuarios.getUsuarios();
     }
 }

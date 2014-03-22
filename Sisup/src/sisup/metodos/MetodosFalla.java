@@ -17,30 +17,8 @@ public class MetodosFalla {
     
    public java.util.ArrayList<sisup.clases.Falla>  getFallas(String fechaInicio, String fechaFin){
         java.util.ArrayList<sisup.clases.Falla> fallas = new java.util.ArrayList<>();
-        try {
-            java.sql.ResultSet resultSet;
-            resultSet = sisup.baseDatos.Consultas.consultarFallas(fechaInicio, fechaFin);
-            while(resultSet.next()){
-                sisup.clases.Falla falla =new sisup.clases.Falla();
-                falla.setIdBomba("idbomba");
-                falla.setBomba("bomba");
-                falla.setIdMantenimiento(resultSet.getString("idmantenimiento"));
-                falla.setMantenimiento("mantenimiento");
-                falla.setIdUsuario("idusuario");
-                falla.setUsuario("usuario");
-                falla.setFechaInicio("inicio");
-                falla.setFechaFinal("fin");
-                falla.setObservacion("observacion");
-                falla.setEstatus(resultSet.getString("estatus"));
-                falla.setId(resultSet.getString("idfalla"));
-                fallas.add(falla);
-            }
-            return fallas;
-        } catch (SQLException ex) {
-            Logger.getLogger(MetodosBomba.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            return fallas;
-        }
+        fallas = sisup.baseDatos.Consultas.consultarFallas(fechaInicio, fechaFin);
+        return fallas;
     }
    
    
