@@ -6,10 +6,15 @@
 
 package sisup.ui;
 
-import java.awt.Image;
-import java.awt.Rectangle;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import sisup.controladores.Mantenimientos;
 
 /**
  *
@@ -18,18 +23,11 @@ import javax.swing.SwingConstants;
 public class UIMantenimientos extends javax.swing.JPanel {
     private UIDashboard padre;
 
-    /**
-     * Creates new form UIMantenimientos1
-     * @param uiAgregarTipoMantenimiento
-     */
-    public void setUIAgregarTipoMantenimiento(UIAgregarTipoMantenimiento uiAgregarTipoMantenimiento) {
-        this.uiAgregarTipoMantenimiento = uiAgregarTipoMantenimiento;
-    }
-    
     public UIMantenimientos(final UIDashboard padre) {
         super();
         this.padre = padre;
         initComponents();
+        CargarTablaMantenimientos();
     }
 
     /**
@@ -46,7 +44,7 @@ public class UIMantenimientos extends javax.swing.JPanel {
         lbl_administrarTiposMantenimiento = new javax.swing.JLabel();
         pnl_accion = new javax.swing.JPanel();
         btn_atras = new javax.swing.JButton();
-        btn_agregarBomba = new javax.swing.JButton();
+        btn_agregarTipoMantenimiento = new javax.swing.JButton();
         pnl_tablaMantenimientos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -99,19 +97,19 @@ public class UIMantenimientos extends javax.swing.JPanel {
             }
         });
 
-        btn_agregarBomba.setBackground(new java.awt.Color(204, 204, 255));
-        btn_agregarBomba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/agregarTipoMantenimiento.png"))); // NOI18N
-        btn_agregarBomba.setText("Agregar");
-        btn_agregarBomba.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 14, 14, 14));
-        btn_agregarBomba.setBorderPainted(false);
-        btn_agregarBomba.setHorizontalTextPosition(SwingConstants.CENTER);
-        btn_agregarBomba.setMargin(new java.awt.Insets(14, 14, 14, 14));
-        btn_agregarBomba.setOpaque(false);
-        btn_agregarBomba.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btn_agregarBomba.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btn_agregarBomba.addActionListener(new java.awt.event.ActionListener() {
+        btn_agregarTipoMantenimiento.setBackground(new java.awt.Color(204, 204, 255));
+        btn_agregarTipoMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/agregarTipoMantenimiento.png"))); // NOI18N
+        btn_agregarTipoMantenimiento.setText("Agregar");
+        btn_agregarTipoMantenimiento.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 14, 14, 14));
+        btn_agregarTipoMantenimiento.setBorderPainted(false);
+        btn_agregarTipoMantenimiento.setHorizontalTextPosition(SwingConstants.CENTER);
+        btn_agregarTipoMantenimiento.setMargin(new java.awt.Insets(14, 14, 14, 14));
+        btn_agregarTipoMantenimiento.setOpaque(false);
+        btn_agregarTipoMantenimiento.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btn_agregarTipoMantenimiento.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btn_agregarTipoMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregarBombaActionPerformed(evt);
+                btn_agregarTipoMantenimientoActionPerformed(evt);
             }
         });
 
@@ -121,7 +119,7 @@ public class UIMantenimientos extends javax.swing.JPanel {
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_accionLayout.createSequentialGroup()
                 .addContainerGap(565, Short.MAX_VALUE)
-                .addComponent(btn_agregarBomba)
+                .addComponent(btn_agregarTipoMantenimiento)
                 .addGap(18, 18, 18)
                 .addComponent(btn_atras)
                 .addContainerGap())
@@ -130,7 +128,7 @@ public class UIMantenimientos extends javax.swing.JPanel {
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(btn_atras)
-                .addComponent(btn_agregarBomba))
+                .addComponent(btn_agregarTipoMantenimiento))
         );
 
         pnl_tablaMantenimientos.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de mantenimientos"));
@@ -210,14 +208,13 @@ public class UIMantenimientos extends javax.swing.JPanel {
         padre.cambiapanel(UIDashboard.enm_paneles.UIDASHBOARD);
     }//GEN-LAST:event_btn_atrasActionPerformed
 
-    private void btn_agregarBombaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarBombaActionPerformed
-        padre.uiAgregarTipoMantenimiento.setBounds(centrarJInternalFrame(uiAgregarTipoMantenimiento.getWidth(),uiAgregarTipoMantenimiento.getHeight()));
-        padre.uiAgregarTipoMantenimiento.show();
-    }//GEN-LAST:event_btn_agregarBombaActionPerformed
+    private void btn_agregarTipoMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarTipoMantenimientoActionPerformed
+        padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARTIPOMANTENIMIENTO);
+    }//GEN-LAST:event_btn_agregarTipoMantenimientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_agregarBomba;
+    private javax.swing.JButton btn_agregarTipoMantenimiento;
     private javax.swing.JButton btn_atras;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -227,13 +224,43 @@ public class UIMantenimientos extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_tablaMantenimientos;
     private javax.swing.JPanel pnl_titulo;
     // End of variables declaration//GEN-END:variables
-    //
-    UIAgregarTipoMantenimiento uiAgregarTipoMantenimiento;
-    ImagenPanel imagenFondo;// = new ImagenPanel();
     
-    private Rectangle centrarJInternalFrame(int ancho, int alto) {
-        int x = (this.getWidth() - ancho) / 2;
-        int y = (this.getHeight()- alto) / 2;
-        return new Rectangle(x, y, ancho, alto);
+    Mantenimientos mantenimientos;
+    
+    public void CargarTablaMantenimientos() {
+        if (mantenimientos == null) mantenimientos = new Mantenimientos();
+
+        Object[][] data = mantenimientos.getListaMantenimientos();
+        
+        if(data.length != 0){
+            String[] columnNames = {"Tipo Mantenimiento", "Estatus", "Acción"};
+
+            DefaultTableModel model = new DefaultTableModel(data, columnNames);
+            JTable table2 = new JTable(model);
+
+            Action delete = new AbstractAction()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    JTable table = (JTable)e.getSource();
+                    int modelRow = Integer.valueOf( e.getActionCommand());
+                    //((DefaultTableModel)table.getModel()).removeRow(modelRow);
+                    String var = table.getModel().getValueAt(modelRow, 0).toString();
+                    String ac = e.getActionCommand();
+                    padre.uiAgregarTipoMantenimiento.setModoEditar(mantenimientos.getMantenimientoEditar(modelRow));
+                    padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
+                }
+            };
+
+            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 4);
+            buttonColumn.setMnemonic(KeyEvent.VK_D);
+
+            JScrollPane scroll = new JScrollPane(table2);
+            scroll.setPreferredSize(new java.awt.Dimension(400, 200));
+            pnl_tablaMantenimientos.add(scroll);
+            scroll.setVisible(true);
+            jScrollPane1.setVisible(false);
+            scroll.setBounds(30, 30, 400, 200);
+        }
     }
 }

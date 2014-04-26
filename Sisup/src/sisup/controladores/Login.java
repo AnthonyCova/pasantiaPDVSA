@@ -6,7 +6,8 @@
 
 package sisup.controladores;
 
-import sisup.ui.UIDashboard;
+import sisup.clases.Usuario;
+import sisup.metodos.MetodosUsuarios;
 
 /**
  *
@@ -14,16 +15,25 @@ import sisup.ui.UIDashboard;
  */
 public class Login {
     
-    public boolean ValidarDatosLogin(String usuario,String clave){
-        boolean autenticacion = true;
+    MetodosUsuarios metodosUsuarios;
+    Usuario usuario;
+    
+    public Login(){
+        metodosUsuarios = new MetodosUsuarios();
+    }
+    
+    public Usuario getUsuario(){
+        return this.usuario;
+    }
+    
+    public boolean ConsultarDatosLogin(String usuario,String clave){
+        boolean autenticacion = false;
         // TODO: Código para la autenticación del usuario
+        this.usuario = metodosUsuarios.getAcceso(usuario, clave);
+        System.out.println(this.usuario.getId());
+        if (this.usuario != null && this.usuario.getId() != null)
+            autenticacion = true;
         return autenticacion;
     }
-    
-    public void MostrarDashboard(){
-        UIDashboard uidashboard = new UIDashboard();
-        uidashboard.setVisible(true);
-    }
-    
     
 }

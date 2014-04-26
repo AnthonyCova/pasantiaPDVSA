@@ -4,28 +4,30 @@
  */
 package sisup.clases;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Tony C
  */
 public class Falla {
     private String id;
-    private String idBomba;
-    private String bomba;
+    private Bomba bomba;
     private String idMantenimiento;
     private String mantenimiento;
     private String idUsuario;
     private String usuario;
-    private String FechaInicio;
-    private String FechaFinal;
+    private Calendar FechaInicio;
+    private Calendar FechaFinal;
     private String observacion;
     private String estatus;
+    private String tiempoFueraServicio;
     
-    public String getBomba() {
+    public Bomba getBomba() {
         return bomba;
     }
 
-    public void setBomba(String bomba) {
+    public void setBomba(Bomba bomba) {
         this.bomba = bomba;
     }
 
@@ -54,11 +56,11 @@ public class Falla {
     }
 
     public String getIdBomba() {
-        return idBomba;
+        return bomba.getId();
     }
 
     public void setIdBomba(String idBomba) {
-        this.idBomba = idBomba;
+        this.bomba.setId(idBomba);
     }
 
     public String getIdMantenimiento() {
@@ -77,20 +79,29 @@ public class Falla {
         this.idUsuario = idUsuario;
     }
 
-    public String getFechaInicio() {
+    public String getFechaInicioString() {
+        return FechaInicio.toString();
+    }
+    
+    public Calendar getFechaInicio() {
         return FechaInicio;
     }
 
-    public void setFechaInicio(String FechaInicio) {
+    public void setFechaInicio(Calendar FechaInicio) {
         this.FechaInicio = FechaInicio;
     }
 
-    public String getFechaFinal() {
+    public Calendar getFechaFinal() {
         return FechaFinal;
     }
+    
+    public String getFechaFinalString() {
+        return FechaFinal.toString();
+    }
 
-    public void setFechaFinal(String FechaFinal) {
+    public void setFechaFinal(Calendar FechaFinal) {
         this.FechaFinal = FechaFinal;
+        calcularTiempoFueraServicio();
     }
 
     public String getObservacion() {
@@ -109,5 +120,31 @@ public class Falla {
         this.estatus = estatus;
     }
     
+    public void setTiempoFueraServicio(String tiempoFueraServicio){
+        this.tiempoFueraServicio = tiempoFueraServicio;
+    }
     
+    public String getTiempoFueraServicio(){
+        return tiempoFueraServicio;
+    }
+
+    private void calcularTiempoFueraServicio() {
+        String diferencia = "";
+        long diff = FechaFinal.getTimeInMillis() - FechaInicio.getTimeInMillis();
+        
+        //diferencia en dias
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+        if(diffDays>0) {diferencia += diffDays + "dia"; diferencia += diffDays > 1 ? "s" : ""; diff -= (diffDays * 24 * 60 * 60 * 1000);}
+        //diferencia en horas
+        long diffHours = diff / (60 * 60 * 1000);
+        if(diffHours>0) {diferencia += diffHours + "hora"; diferencia += diffHours > 1 ? "s" : ""; diff -= (diffHours * 60 * 60 * 1000);}
+        //diferencia en minutos
+        long diffMinutes = diff / (60 * 1000);
+        if(diffMinutes>0) {diferencia += diffMinutes + "minuto"; diferencia += diffMinutes > 1 ? "s" : ""; diff -= (diffMinutes * 60 * 1000);}
+        //diferencia en segundos
+        long diffSeconds = diff / 1000;
+        if(diffSeconds>0) {diferencia += diffSeconds + "segundo"; diferencia += diffSeconds > 1 ? "s" : ""; diff -= (diffSeconds * 1000);}
+        
+        setTiempoFueraServicio(diferencia);
+    }
 }

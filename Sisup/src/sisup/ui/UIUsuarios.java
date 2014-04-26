@@ -6,14 +6,15 @@
 
 package sisup.ui;
 
-import java.awt.Dimension;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import sisup.controladores.Usuarios;
+import sisup.controladores.UsuariosControlador;
 
 /**
  *
@@ -21,22 +22,16 @@ import sisup.controladores.Usuarios;
  */
 public class UIUsuarios extends javax.swing.JPanel {
     private final UIDashboard padre;
-    private UIAgregarUsuario uiAgregarUsuario;
-    private Usuarios usuarios;
-    private JTable __table;
-    private JScrollPane __scrollPane;
+    private UsuariosControlador usuarios;
     
-    private DefaultTableModel dtm;
-
     /**
-     * Creates new form UIUsuarios
+     * Creates new form UIUsuariosControlador
      * @param padre
      */
     public UIUsuarios(final UIDashboard padre) {
         super();
         this.padre = padre;
         initComponents();
-        inicializarComponentes();
         CargarTablaUsuarios();
     }
 
@@ -223,9 +218,8 @@ public class UIUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_atrasActionPerformed
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        padre.uiAgregarUsuario.setBounds(padre.centrarJInternalFrame(uiAgregarUsuario.getWidth(),uiAgregarUsuario.getHeight()));
-        padre.uiAgregarUsuario.setReferenciaUsuario(this);
-        padre.uiAgregarUsuario.show();
+        
+        padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
     }//GEN-LAST:event_btn_agregarActionPerformed
 
 
@@ -241,61 +235,42 @@ public class UIUsuarios extends javax.swing.JPanel {
     private javax.swing.JTable tbl_usuarios;
     // End of variables declaration//GEN-END:variables
     
-    public void setUIAgregarUsuario(UIAgregarUsuario uiAgregarUsuario) {
-        this.uiAgregarUsuario = uiAgregarUsuario;
-    }
 
     public void CargarTablaUsuarios() {
-        if (usuarios == null) usuarios = new Usuarios();
-        /*ArrayList<Usuario> listaUsuarios = usuarios.getListaUsuarios();
-        dtm = new DefaultTableModel(null,new String [] {"Nombre", "Login", "Cargo", "Estatus", "Acción"});
+        if (usuarios == null) usuarios = new UsuariosControlador();
+
+        Object[][] data = usuarios.getListaUsuarios();
         
-        Icon [] iconos = new Icon [3];
- 
-        Object datos[]=new Object[5];
-        
-        /*for (Usuario usuario : listaUsuarios){
-            datos[0] = usuario.getNombre();
-            datos[1] = usuario.getLogin();
-            datos[2] = usuario.getCargo();
-            datos[3] = usuario.getEstatus();
-            JButton editar = new JButton();
-            datos[4] = editar;
-            dtm.addRow(datos);
-        } * /
-        for (int i=0; i<2; i++){
-            datos[0] = "A";
-            datos[1] = "B";
-            datos[2] = "C";
-            datos[3] = "D";
-            iconos[i] = new ImageIcon("/sisup/recursos/usuario_activo.png");
-            datos[4] = iconos[i];
-            dtm.addRow(datos);
-        } 
-        this.tbl_usuarios.setModel(dtm);*/
+        if(data.length != 0){
+            String[] columnNames = {"Nombre", "Login", "Cargo", "Estatus", "Acción"};
+
+            DefaultTableModel model = new DefaultTableModel(data, columnNames);
+            JTable table2 = new JTable(model);
+
+            Action delete = new AbstractAction()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    JTable table = (JTable)e.getSource();
+                    int modelRow = Integer.valueOf( e.getActionCommand());
+                    //((DefaultTableModel)table.getModel()).removeRow(modelRow);
+                    String var = table.getModel().getValueAt(modelRow, 0).toString();
+                    String ac = e.getActionCommand();
+                    padre.uiAgregarUsuario.setModoEditar(usuarios.getUsuarioEditar(modelRow));
+                    padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
+                }
+            };
+
+            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 4);
+            buttonColumn.setMnemonic(KeyEvent.VK_D);
+
+            JScrollPane scroll = new JScrollPane(table2);
+            scroll.setPreferredSize(new java.awt.Dimension(400, 200));
+            pnl_content.add(scroll);
+            scroll.setVisible(true);
+            jScrollPane1.setVisible(false);
+            scroll.setBounds(30, 30, 400, 200);
+        }
     }
     
-    Usuarios getUsuarios(){
-        return usuarios;
-    }
-
-    private void inicializarComponentes() {
-        TableCellRenderer defaultRenderer;
-
-    __table = new JTable(new JTableButtonModel());
-    defaultRenderer = __table.getDefaultRenderer(JButton.class);
-    __table.setDefaultRenderer(JButton.class,
-			       new JTableButtonRenderer(defaultRenderer));
-    __table.setPreferredScrollableViewportSize(new Dimension(400, 200));
-    
-    __table.addMouseListener(new JTableButtonMouseListener(__table));
-
-    __scrollPane = new JScrollPane(__table);
-    __scrollPane.setPreferredSize(new java.awt.Dimension(400, 200));
-    pnl_content.add(__scrollPane);
-    __scrollPane.setVisible(true);
-    __scrollPane.setViewportView(__table);
-    jScrollPane1.setVisible(false);
-    __scrollPane.setBounds(0, 0, 400, 200);
-    }
 }

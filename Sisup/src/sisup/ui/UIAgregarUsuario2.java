@@ -6,33 +6,28 @@
 
 package sisup.ui;
 
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import sisup.clases.Usuario;
 import sisup.controladores.UsuariosControlador;
 
 /**
  *
  * @author Liz
  */
-public class UIAgregarUsuario extends javax.swing.JInternalFrame {
-    private UIUsuarios uiUsuarios;
+public class UIAgregarUsuario2 extends javax.swing.JPanel {
 
     /**
-     * Creates new form NuevoUsuario
+     * Creates new form UIAgregarUsuario2
      */
-    public UIAgregarUsuario() {
+    public UIAgregarUsuario2(final UIDashboard padre) {
+        super();
+        this.padre = padre;
         initComponents();
         btn_editar.setVisible(false);
         lbl_estatus.setVisible(false);
         cmb_estatus.setVisible(false);
-    }
-    
-    public UIAgregarUsuario(UsuariosControlador usuarios) {
-        initComponents();
-        ModoEdicion();
+        txt_id.setVisible(false);
     }
 
     /**
@@ -66,10 +61,14 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
         txt_login = new javax.swing.JTextField();
         lbl_estatus = new javax.swing.JLabel();
         cmb_estatus = new javax.swing.JComboBox();
+        txt_id = new javax.swing.JTextField();
+        lbl_nota1 = new javax.swing.JLabel();
 
-        setClosable(true);
-        setTitle("Agregar Nuevo Usuario");
-        setPreferredSize(new java.awt.Dimension(700, 400));
+        setOpaque(false);
+
+        pnl_body.setOpaque(false);
+
+        pnl_titulo.setOpaque(false);
 
         lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/agregarUsuario.png"))); // NOI18N
         lbl_titulo.setText("Agregar Usuario");
@@ -89,6 +88,8 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_titulo))
         );
+
+        pnl_accion.setOpaque(false);
 
         btn_cerrar.setBackground(new java.awt.Color(204, 204, 255));
         btn_cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/atras.png"))); // NOI18N
@@ -154,18 +155,20 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
         pnl_accionLayout.setVerticalGroup(
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_accionLayout.createSequentialGroup()
+                .addGap(0, 15, Short.MAX_VALUE)
                 .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_cerrar)
+                    .addComponent(btn_editar)
                     .addComponent(btn_agregar)
-                    .addComponent(btn_editar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_cerrar))
+                .addContainerGap())
         );
 
         pnl_usuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del usuario"));
+        pnl_usuario.setOpaque(false);
 
-        lbl_nombres.setText("Nombres:");
+        lbl_nombres.setText("Nombres (*):");
 
-        lbl_apellidos.setText("Correo:");
+        lbl_apellidos.setText("Correo (*):");
 
         lbl_cedula.setText("Cédula:");
 
@@ -173,7 +176,7 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
 
         lbl_rol.setText("Rol:");
 
-        lbl_login.setText("Login:");
+        lbl_login.setText("Login (*):");
 
         txt_nombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,42 +208,61 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
 
         cmb_estatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Desactivado" }));
 
+        txt_id.setFocusable(false);
+        txt_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_idActionPerformed(evt);
+            }
+        });
+
+        lbl_nota1.setText("Nota: Los campos (*) son obligatorios");
+
         javax.swing.GroupLayout pnl_usuarioLayout = new javax.swing.GroupLayout(pnl_usuario);
         pnl_usuario.setLayout(pnl_usuarioLayout);
         pnl_usuarioLayout.setHorizontalGroup(
             pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_usuarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbl_nombres)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_nombres, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_apellidos)
-                            .addComponent(lbl_cargo)
-                            .addComponent(lbl_estatus))
-                        .addGap(24, 24, 24)
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_correo)
-                            .addComponent(txt_cargo)
-                            .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                                .addComponent(cmb_estatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(54, 54, 54)
                 .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_usuarioLayout.createSequentialGroup()
                         .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_rol)
-                            .addComponent(lbl_login))
-                        .addGap(22, 22, 22)
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_login)
-                            .addComponent(cmb_rol, 0, 184, Short.MAX_VALUE)
-                            .addComponent(txt_cedula, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(lbl_cedula))
-                .addContainerGap(70, Short.MAX_VALUE))
+                            .addGroup(pnl_usuarioLayout.createSequentialGroup()
+                                .addComponent(lbl_nombres)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_nombres, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54))
+                            .addGroup(pnl_usuarioLayout.createSequentialGroup()
+                                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_apellidos)
+                                    .addComponent(lbl_cargo)
+                                    .addComponent(lbl_estatus))
+                                .addGap(27, 27, 27)
+                                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_cargo)
+                                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
+                                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(pnl_usuarioLayout.createSequentialGroup()
+                                                .addComponent(cmb_estatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(33, 33, 33)
+                                                .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_usuarioLayout.createSequentialGroup()
+                                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_rol)
+                                    .addComponent(lbl_login))
+                                .addGap(22, 22, 22)
+                                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_login)
+                                    .addComponent(cmb_rol, 0, 184, Short.MAX_VALUE)
+                                    .addComponent(txt_cedula, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(lbl_cedula))
+                        .addContainerGap(218, Short.MAX_VALUE))
+                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
+                        .addComponent(lbl_nota1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnl_usuarioLayout.setVerticalGroup(
             pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,10 +285,13 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
                     .addComponent(cmb_rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_cargo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmb_estatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_estatus)
-                    .addComponent(cmb_estatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(lbl_nota1)
                 .addContainerGap())
         );
 
@@ -288,57 +313,56 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(pnl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(pnl_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnl_body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnl_body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
+        cerrarVista();
+    }//GEN-LAST:event_btn_cerrarActionPerformed
+
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        agregarDatosUsuario();
+    }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        agregarDatosUsuario();
+    }//GEN-LAST:event_btn_editarActionPerformed
 
     private void txt_nombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nombresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nombresActionPerformed
 
-    private void txt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_loginActionPerformed
+    private void txt_correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_correoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_loginActionPerformed
+    }//GEN-LAST:event_txt_correoActionPerformed
 
     private void txt_cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cargoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_cargoActionPerformed
 
-    private void txt_correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_correoActionPerformed
+    private void txt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_loginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_correoActionPerformed
+    }//GEN-LAST:event_txt_loginActionPerformed
 
-    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
-        try {
-            this.setClosed(true);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(UIAgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btn_cerrarActionPerformed
-
-    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        agregarDatosUsuario(0);
-    }//GEN-LAST:event_btn_agregarActionPerformed
-
-    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        agregarDatosUsuario(1);
-    }//GEN-LAST:event_btn_editarActionPerformed
+    private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_idActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,6 +377,7 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_estatus;
     private javax.swing.JLabel lbl_login;
     private javax.swing.JLabel lbl_nombres;
+    private javax.swing.JLabel lbl_nota1;
     private javax.swing.JLabel lbl_rol;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JPanel pnl_accion;
@@ -362,56 +387,84 @@ public class UIAgregarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_cargo;
     private javax.swing.JTextField txt_cedula;
     private javax.swing.JTextField txt_correo;
+    private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_login;
     private javax.swing.JTextField txt_nombres;
     // End of variables declaration//GEN-END:variables
 
-    private void ModoEdicion() {
-        this.setTitle(this.getTitle().replace("Agregar Nuevo", "Editar"));
+    UIDashboard padre;
+    Usuario usuario;
+    UsuariosControlador usuariosControlador;
+    boolean modoEditar;
+    String mnj_confirmacion = "Se ha agregado el usuario exitosamente";
+    String mnj_error = "Ha ocurrido un error agregando el usuario";
+    
+    public void setModoEditar(Usuario usuario){
+        this.modoEditar = true;
+        mostrarDatosEditar(usuario);
         this.lbl_titulo.setText(this.lbl_titulo.getText().replace("Agregar", "Editar"));
+        btn_editar.setVisible(true);
         this.btn_agregar.setVisible(false);
-        this.btn_editar.setVisible(true);
-        
-        /*this.txt_nombres.setText(usuario.getNombres());
-        this.txt_apellidos.setText(usuario.getApellidos());
+        lbl_estatus.setVisible(true);
+        cmb_estatus.setVisible(true);
+        mnj_confirmacion = mnj_confirmacion.replace("agreg", "edit");
+        mnj_error = mnj_error.replace("agreg", "edit");
+    }
+    
+    public void mostrarDatosEditar(Usuario usuario){
+        this.txt_nombres.setText(usuario.getNombre());
         this.txt_cedula.setText(usuario.getCedula());
-        this.txt_login.settext(usuario.getLogin());
+        this.txt_correo.setText(usuario.getCorreo());
         this.txt_cargo.setText(usuario.getCargo());
-        this.cmb_rol.setSelectedIndex(usuario.getRol());*/
+        this.txt_login.setText(usuario.getLogin());
+        this.cmb_rol.setSelectedItem(usuario.getRol());
+        this.cmb_estatus.setSelectedItem(usuario.getEstatus());
+        this.txt_id.setText(usuario.getId());
     }
 
-    private void agregarDatosUsuario(int modo) {
-    /*    if(ValidarDatos()){
-            uiUsuarios.getUsuarios().armarUsuario(this.txt_nombres.getText(),
-                                                  this.txt_cedula.getText(),
-                                                  this.txt_correo.getText(),
-                                                  this.txt_cargo.getText(),
-                                                  this.txt_login.getText(),
-                                                  this.cmb_rol.getSelectedItem().toString(),
-                                                  this.cmb_estatus.getSelectedItem().toString());
-            if (uiUsuarios.getUsuarios().agregarDatosUsuario(modo) == 1){
-                JOptionPane.showMessageDialog(null, "Se ha agregado al usuario exitosamente", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-                //uiUsuarios.CargarTablaUsuarios();
-                this.setVisible(false);
+    private void agregarDatosUsuario() {
+        if(usuariosControlador == null) usuariosControlador = new UsuariosControlador();
+        if(ValidarDatos()){
+            usuario = usuariosControlador.armarUsuario(this.txt_id.getText(),
+                                                       this.txt_nombres.getText(),
+                                                       this.txt_cedula.getText(),
+                                                       this.txt_correo.getText(),
+                                                       this.txt_cargo.getText(),
+                                                       this.txt_login.getText(),
+                                                       this.cmb_rol.getSelectedItem().toString(),
+                                                       this.cmb_estatus.getSelectedItem().toString());
+            
+            if (usuariosControlador.agregarDatosUsuario(modoEditar,usuario) == 1){
+                JOptionPane.showMessageDialog(null, mnj_confirmacion, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                padre.uiUsuarios.CargarTablaUsuarios();
+                cerrarVista();
             }
             else 
-                JOptionPane.showMessageDialog(null, "Datos Inválidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, mnj_error, "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
         else 
-            JOptionPane.showMessageDialog(null, "Datos Inválidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    */}
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los datos obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
     
     private boolean ValidarDatos(){
         return !this.txt_nombres.getText().isEmpty() && 
                 !this.txt_correo.getText().isEmpty() &&
-                 !this.txt_cedula.getText().isEmpty() && 
-                  !this.txt_cargo.getText().isEmpty() && 
-                   !this.txt_login.getText().isEmpty() && 
-                    this.cmb_rol.getSelectedIndex()!=0;
+                 !this.txt_login.getText().isEmpty();
     }
-
-    void setReferenciaUIUsuario(UIUsuarios uiUsuarios) {
-        this.uiUsuarios = uiUsuarios;
+    
+    private void cerrarVista(){
+        limpiarCampos();
+        padre.cambiapanel(UIDashboard.enm_paneles.UIUSUARIOS);
     }
-
+    
+    private void limpiarCampos(){
+        this.txt_nombres.setText("");
+        this.txt_cedula.setText("");
+        this.txt_correo.setText("");
+        this.txt_cargo.setText("");
+        this.txt_login.setText("");
+        this.cmb_rol.setSelectedItem("Usuario");
+        this.cmb_estatus.setSelectedItem("Activo");
+        this.txt_id.setText("");
+    }
 }

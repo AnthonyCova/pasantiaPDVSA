@@ -149,5 +149,19 @@ public class Conexion {
             return resultado;
         }
     }
+    
+    public int insertarConId(String inserta)  {
+        int resultado=-1;
+        try {
+            Statement st = (Statement) this.conn.createStatement();
+            resultado =st.executeUpdate(inserta,Statement.RETURN_GENERATED_KEYS);
+            return resultado;
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            resultado =-2;
+        }finally{
+            return resultado;
+        }
+    }
  
 }

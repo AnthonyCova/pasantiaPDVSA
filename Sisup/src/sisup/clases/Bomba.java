@@ -12,7 +12,7 @@ public class Bomba {
     
     private String id;
     private String tag;
-    private String descripcioTag;
+    private String descripcionTag;
     private String horaArranque;
     private String senal;
     private String estatus;
@@ -33,12 +33,12 @@ public class Bomba {
         this.tag = tag;
     }
 
-    public String getDescripcioTag() {
-        return descripcioTag;
+    public String getDescripcionTag() {
+        return descripcionTag;
     }
 
-    public void setDescripcioTag(String descripcioTag) {
-        this.descripcioTag = descripcioTag;
+    public void setDescripcionTag(String descripcionTag) {
+        this.descripcionTag = descripcionTag;
     }
 
     public String getHoraArranque() {

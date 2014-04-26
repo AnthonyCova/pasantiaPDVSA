@@ -220,13 +220,11 @@ public class UILogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
-        if (ValidarCampos() && login.ValidarDatosLogin(txt_usuario.getText().toString(),txt_clave.getPassword().toString())){
+        if (ValidarCampos() && login.ConsultarDatosLogin(txt_usuario.getText().toString(),txt_clave.getPassword().toString())){
             uiDashboard = new UIDashboard();
+            uiDashboard.asignarUsuario(login.getUsuario().getNombre(), login.getUsuario().getRol());
             uiDashboard.setVisible(true);
-            /*UIMantenimientos2 m = new UIMantenimientos2();
-            m.setVisible(true);*/
             this.setVisible(false);
-            //login.MostrarDashboard();
         } 
         else MostrarMensajeError();
         
@@ -335,34 +333,15 @@ public void paint(Graphics g) {
     ImageIcon iconoFrame;
 
     private boolean ValidarCampos() {
-        return !(txt_usuario.getText().equals("") || txt_usuario.getText().equals("USUARIO"));
+        System.out.println(txt_clave.getPassword());
+        return !(txt_usuario.getText().equals("") || txt_usuario.getText().equals("USUARIO") || txt_clave.getPassword().length == 0 || txt_clave.getPassword().toString().equals("jPasswordField1"));
     }
     
     public void MostrarMensajeError(){
-        JOptionPane.showMessageDialog(null, "Datos Inválidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Por favor introduzca sus credenciales correctamente", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
 
     private void inicializarComponentes() {
-        /*FONDO UNO
-        fondoHeader = new ImagenPanel("/sisup/recursos/fondoTitulo.png");
-        fondoHeader.setSize(new Dimension(711, 44));
-        fondoHeader.setVisible(true);
-        fondoHeader.setLayout(null);
-        pnl_header.setBounds(0, 0, 711, 44);
-                
-        fondoContent = new ImagenPanel("/sisup/recursos/sisor3.png");
-        fondoContent.setSize(new Dimension(710, 485));
-        fondoContent.setVisible(true);
-        fondoContent.setLayout(null);
-        pnl_content.setBounds(0, 0, 710, 465);*/
-        
-        /*FONDO DOS*/
-        /*fondoHeader = new ImagenPanel("/sisup/recursos/fondoTitulo.png");
-        fondoHeader.setSize(new Dimension(711, 46));
-        fondoHeader.setVisible(true);
-        fondoHeader.setLayout(null);
-        pnl_header.setBounds(0, 0, 711, 46);*/
-                
         fondoContent = new ImagenPanel("/sisup/recursos/sisor4.png");
         fondoContent.setSize(new Dimension(750, 473));
         fondoContent.setVisible(true);

@@ -9,9 +9,17 @@ package sisup.ui;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import sisup.controladores.Dashboard;
+import sisup.controladores.ReportesControlador;
 
 /**
  *
@@ -101,13 +109,13 @@ public class UIDashboard extends javax.swing.JFrame {
         tbl_resumenReportes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tbl_resumenReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Hora", "Point ID", "Descripcion", "Valor", "Fuera de Servicio", "Reporte"
+                "Fecha", "Point ID", "Descripcion", "Fuera de Servicio", "Reporte"
             }
         ));
         tbl_resumenReportes.setOpaque(false);
@@ -267,18 +275,10 @@ public class UIDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mit_mantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_mantenimientosActionPerformed
-
-        uiAgregarTipoMantenimiento = new UIAgregarTipoMantenimiento();
-        jdp_escritorio.add(uiAgregarTipoMantenimiento);
-        uiMantenimientos.setUIAgregarTipoMantenimiento(uiAgregarTipoMantenimiento);
-        cambiapanel(enm_paneles.UIMANTENIMIENTOS);
-        
+        cambiapanel(enm_paneles.UIMANTENIMIENTOS);    
     }//GEN-LAST:event_mit_mantenimientosActionPerformed
 
     private void mit_bombasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_bombasActionPerformed
-        uiAgregarBomba = new UIAgregarBomba(1);
-        jdp_escritorio.add(uiAgregarBomba);
-        uiBombas.setUIAgregarBomba(uiAgregarBomba);
         cambiapanel(enm_paneles.UIBOMBAS);
     }//GEN-LAST:event_mit_bombasActionPerformed
 
@@ -287,9 +287,6 @@ public class UIDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_mit_generarReporteActionPerformed
 
     private void mit_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_usuariosActionPerformed
-        uiAgregarUsuario = new UIAgregarUsuario();
-        jdp_escritorio.add(uiAgregarUsuario);
-        uiUsuarios.setUIAgregarUsuario(uiAgregarUsuario);
         cambiapanel(enm_paneles.UIUSUARIOS);
     }//GEN-LAST:event_mit_usuariosActionPerformed
 
@@ -360,12 +357,12 @@ public class UIDashboard extends javax.swing.JFrame {
 
     //Instanacia de las vistas
     public UIMantenimientos uiMantenimientos;
-    public UIAgregarTipoMantenimiento uiAgregarTipoMantenimiento;
+    public UIAgregarTipoMantenimiento2 uiAgregarTipoMantenimiento;
     public UIBombas uiBombas;
-    public UIAgregarBomba uiAgregarBomba;
+    public UIAgregarBomba2 uiAgregarBomba;
     public UIUsuarios uiUsuarios;
-    public UIAgregarUsuario uiAgregarUsuario;
-    public UINuevoReporte uiNuevoReporte;
+    public UIAgregarUsuario2 uiAgregarUsuario;
+    public UINuevoReporte2 uiNuevoReporte;
     public UIGenerarReporte uiGenerarReporte;
     
     //Instanacia del Controlador
@@ -377,6 +374,9 @@ public class UIDashboard extends javax.swing.JFrame {
     //Imagen de fondo
     ImagenPanel imagenFondo;
     
+    //Controladores
+    ReportesControlador reportesControlador;
+    
     private void iniciarVentanas() {
         //InicializarControlador
         dashboard = new Dashboard();
@@ -386,26 +386,32 @@ public class UIDashboard extends javax.swing.JFrame {
         uiBombas = new UIBombas(this);
         uiUsuarios = new UIUsuarios(this);
         uiGenerarReporte = new UIGenerarReporte(this);
-        uiNuevoReporte = new UINuevoReporte();
+        uiNuevoReporte = new UINuevoReporte2();
+        
+        uiAgregarUsuario = new UIAgregarUsuario2(this);
+        uiAgregarTipoMantenimiento = new UIAgregarTipoMantenimiento2(this);
+        uiAgregarBomba = new UIAgregarBomba2(this);
                 
         //Agregar los paneles al CardLayout
         card = new CardLayout();
-        /*card.addLayoutComponent(uiUsuarios,"uiUsuarios");
-        card.addLayoutComponent(uiBombas,"uiBombas");
-        card.addLayoutComponent(pnl_dashboard,"uiDashboard");
-        card.addLayoutComponent(uiMantenimientos,"uiMantenimientos");
-        card.addLayoutComponent(uiGenerarReporte,"uiGenerarReportes");*/
+
         card.addLayoutComponent(uiUsuarios,enm_paneles.UIUSUARIOS.toString());
         card.addLayoutComponent(uiBombas,enm_paneles.UIBOMBAS.toString());
         card.addLayoutComponent(pnl_dashboard,enm_paneles.UIDASHBOARD.toString());
         card.addLayoutComponent(uiMantenimientos,enm_paneles.UIMANTENIMIENTOS.toString());
         card.addLayoutComponent(uiGenerarReporte,enm_paneles.UIGENERARREPORTES.toString());
+        card.addLayoutComponent(uiAgregarUsuario, enm_paneles.UIAGREGARUSUARIO.toString());
+        card.addLayoutComponent(uiAgregarTipoMantenimiento, enm_paneles.UIAGREGARTIPOMANTENIMIENTO.toString());
+        card.addLayoutComponent(uiAgregarBomba, enm_paneles.UIAGREGARBOMBA.toString());
         
         //Agregar las vistas al panel principal
         pnl_principal.add(uiUsuarios);
         pnl_principal.add(uiBombas);
         pnl_principal.add(uiMantenimientos);
         pnl_principal.add(uiGenerarReporte);
+        pnl_principal.add(uiAgregarUsuario);
+        pnl_principal.add(uiAgregarTipoMantenimiento);
+        pnl_principal.add(uiAgregarBomba);
         
         pnl_principal.setLayout(card);
         card.show(pnl_principal, enm_paneles.UIDASHBOARD.toString());
@@ -421,11 +427,11 @@ public class UIDashboard extends javax.swing.JFrame {
         //if (sesion.usuario.rol != enum_roles.administrador)
         //mit_Administrar.setVisible(false);
         
-        //Alineación de nombre de usuario a la derecha
+        /*Alineación de nombre de usuario a la derecha
         javax.swing.JMenu mit_nombreUsuario = new javax.swing.JMenu();
         mit_nombreUsuario.setText("Bienvenido, ");
         men_menu.add(Box.createHorizontalGlue());
-        men_menu.add(mit_nombreUsuario);
+        men_menu.add(mit_nombreUsuario);*/
         
         this.setLocationRelativeTo(null);
     }
@@ -440,12 +446,64 @@ public class UIDashboard extends javax.swing.JFrame {
         card.show(pnl_principal, panel.toString());
     }
     
+    public void asignarUsuario(String nombre, String rol){
+        //Alineación de nombre de usuario a la derecha
+        javax.swing.JMenu mit_nombreUsuario = new javax.swing.JMenu();
+        mit_nombreUsuario.setText("Bienvenido, " + nombre);
+        men_menu.add(Box.createHorizontalGlue());
+        men_menu.add(mit_nombreUsuario);
+        
+        if(!rol.equals("Administrador"))
+            mit_Administrar.setVisible(false);
+    }
+    
+    public void CargarTablaUsuarios() {
+        if (reportesControlador == null) reportesControlador = new ReportesControlador();
+
+        Object[][] data = reportesControlador.getListaBombasParadas();
+        
+        if(data.length != 0){
+            String[] columnNames = {"Fecha", "PointID", "Descripcion", "Fuera de Servicio", "Acción"};
+
+            DefaultTableModel model = new DefaultTableModel(data, columnNames);
+            JTable table2 = new JTable(model);
+
+            Action delete = new AbstractAction()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    JTable table = (JTable)e.getSource();
+                    int modelRow = Integer.valueOf( e.getActionCommand());
+                    //((DefaultTableModel)table.getModel()).removeRow(modelRow);
+                    String var = table.getModel().getValueAt(modelRow, 0).toString();
+                    String ac = e.getActionCommand();
+                    uiNuevoReporte.setModoFalla(reportesControlador.getFallaReportar(modelRow));
+                    cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
+                }
+            };
+
+            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 4);
+            buttonColumn.setMnemonic(KeyEvent.VK_D);
+
+            JScrollPane scroll = new JScrollPane(table2);
+            scroll.setPreferredSize(new java.awt.Dimension(400, 200));
+            pnl_tabla.add(scroll);
+            scroll.setVisible(true);
+            pnl_content.setVisible(false);
+            scroll.setBounds(30, 30, 400, 200);
+        }
+    }
+    
     public enum enm_paneles{
         UIMANTENIMIENTOS,
         UIUSUARIOS,
         UIBOMBAS,
         UIDASHBOARD,
-        UIGENERARREPORTES;
+        UIGENERARREPORTES,
+        UIAGREGARUSUARIO,
+        UIAGREGARBOMBA,
+        UIAGREGARTIPOMANTENIMIENTO,
+        UIGENERARREPORTE;
     }
     
 }

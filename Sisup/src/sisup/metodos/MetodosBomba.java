@@ -4,32 +4,32 @@
  */
 package sisup.metodos;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Tony C
  */
 public class MetodosBomba {
     
-    
     public  int setBomba(sisup.clases.Bomba bomba){
-        int resultado = sisup.baseDatos.Consultas.insertarBomba(bomba.getTag(), bomba.getDescripcioTag(), bomba.getEstatus(), bomba.getHoraArranque());
+        int resultado = sisup.baseDatos.Consultas.insertarBomba(bomba.getTag(), bomba.getDescripcionTag(), bomba.getEstatus(), bomba.getHoraArranque());
         return resultado;
 
     }
     
     public int actualizarBomba(sisup.clases.Bomba bomba){
-        int resultado = sisup.baseDatos.Consultas.actualizarBomba(bomba.getTag(), bomba.getDescripcioTag(), bomba.getEstatus(), bomba.getHoraArranque(),bomba.getId());
+        int resultado = sisup.baseDatos.Consultas.actualizarBomba(bomba.getTag(), bomba.getDescripcionTag(), bomba.getEstatus(), bomba.getHoraArranque(),bomba.getId());
         return resultado;
     }
     
-    public java.util.ArrayList<sisup.clases.Bomba>  getBombas(String senal){
-        java.util.ArrayList<sisup.clases.Bomba> bombas = new java.util.ArrayList<>();
-        bombas = sisup.baseDatos.Consultas.obtenerBombas(senal);
+    public java.util.ArrayList<sisup.clases.Bomba>  getBombasParada(String senal){
+        java.util.ArrayList<sisup.clases.Bomba> bombas;
+        bombas = sisup.baseDatos.Consultas.obtenerBombasParada(senal);
         return bombas;
-
+    }
+    
+    public java.util.ArrayList<sisup.clases.Bomba>  getBombas(){
+        java.util.ArrayList<sisup.clases.Bomba> bombas;
+        bombas = sisup.baseDatos.Consultas.obtenerBombas();
+        return bombas;
     }
 }

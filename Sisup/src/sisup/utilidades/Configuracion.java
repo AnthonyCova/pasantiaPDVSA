@@ -36,6 +36,8 @@ Properties properties = null;
     public final static String URLLDAP = "urlLDAP";
     /** FLAG LDAP */
     public final static String FLAGLDAP = "ldap";
+    /** Senal para falla de bomba **/
+    public final static String SENALFALLABOMBA = "senalFallaBomba";
     
     private Configuracion() {
         this.properties = new Properties();

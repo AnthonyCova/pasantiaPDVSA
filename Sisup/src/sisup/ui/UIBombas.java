@@ -7,17 +7,22 @@
 package sisup.ui;
 
 import java.awt.Color;
-import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import sisup.controladores.BombasControlador;
 
 /**
  *
  * @author Liz
  */
 public class UIBombas extends javax.swing.JPanel {
-    private UIDashboard padre;
-    public UIAgregarBomba uiAgregarBomba;
+    
     /**
      * Creates new form IUBombas
      */
@@ -25,6 +30,7 @@ public class UIBombas extends javax.swing.JPanel {
         super();
         this.padre = padre;
         initComponents();
+        CargarTablaBombas();
     }
 
     /**
@@ -139,13 +145,13 @@ public class UIBombas extends javax.swing.JPanel {
 
         tbl_bombas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "TAG", "Descripción", "Status", "Acción"
+                "TAG", "Status", "Acción"
             }
         ));
         jScrollPane1.setViewportView(tbl_bombas);
@@ -209,8 +215,7 @@ public class UIBombas extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_atrasActionPerformed
 
     private void btn_agregarBombaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarBombaActionPerformed
-        padre.uiAgregarBomba.setBounds(padre.centrarJInternalFrame(uiAgregarBomba.getWidth(),uiAgregarBomba.getHeight()));
-        padre.uiAgregarBomba.show();
+        padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARBOMBA);
     }//GEN-LAST:event_btn_agregarBombaActionPerformed
 
 
@@ -227,7 +232,44 @@ public class UIBombas extends javax.swing.JPanel {
     private javax.swing.JLabel txt_bomba;
     // End of variables declaration//GEN-END:variables
     
-    public void setUIAgregarBomba(UIAgregarBomba uiAgregarBomba){
-        this.uiAgregarBomba = uiAgregarBomba;
+    private UIDashboard padre;
+
+    BombasControlador bombasControlador;
+    
+    public void CargarTablaBombas() {
+        if (bombasControlador == null) bombasControlador = new BombasControlador();
+
+        Object[][] data = bombasControlador.getListaBombas();
+        
+        if(data.length != 0){
+            String[] columnNames = {"Descripcion", "Estatus", "Acción"};
+
+            DefaultTableModel model = new DefaultTableModel(data, columnNames);
+            JTable table2 = new JTable(model);
+
+            Action delete = new AbstractAction()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    JTable table = (JTable)e.getSource();
+                    int modelRow = Integer.valueOf( e.getActionCommand());
+                    //((DefaultTableModel)table.getModel()).removeRow(modelRow);
+                    String var = table.getModel().getValueAt(modelRow, 0).toString();
+                    String ac = e.getActionCommand();
+                    padre.uiAgregarBomba.setModoEditar(bombasControlador.getBombaEditar(modelRow));
+                    padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
+                }
+            };
+
+            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 4);
+            //buttonColumn.setMnemonic(KeyEvent.VK_D);
+
+            JScrollPane scroll = new JScrollPane(table2);
+            scroll.setPreferredSize(new java.awt.Dimension(400, 200));
+            pnl_listadoBombas.add(scroll);
+            scroll.setVisible(true);
+            jScrollPane1.setVisible(false);
+            scroll.setBounds(30, 30, 400, 200);
+        }
     }
 }

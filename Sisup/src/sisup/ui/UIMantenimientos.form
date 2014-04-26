@@ -124,7 +124,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="565" max="32767" attributes="0"/>
-                      <Component id="btn_agregarBomba" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_agregarTipoMantenimiento" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_atras" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -135,7 +135,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btn_atras" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_agregarBomba" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_agregarTipoMantenimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -172,7 +172,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_atrasActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_agregarBomba">
+            <Component class="javax.swing.JButton" name="btn_agregarTipoMantenimiento">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="cc" type="rgb"/>
@@ -200,7 +200,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_agregarBombaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_agregarTipoMantenimientoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
