@@ -167,11 +167,6 @@ public class UIAgregarTipoMantenimiento2 extends javax.swing.JPanel {
         cmb_estatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Desactivado" }));
 
         txt_id.setFocusable(false);
-        txt_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_idActionPerformed(evt);
-            }
-        });
 
         lbl_nota1.setText("Nota: Los campos (*) son obligatorios");
 
@@ -268,10 +263,6 @@ public class UIAgregarTipoMantenimiento2 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_tipoMantenimientoActionPerformed
 
-    private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_idActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
@@ -307,6 +298,15 @@ public class UIAgregarTipoMantenimiento2 extends javax.swing.JPanel {
         mnj_error = mnj_error.replace("agreg", "edit");
     }
     
+    public void setModoAgregar() {
+        this.modoEditar = false;
+        this.lbl_titulo.setText(this.lbl_titulo.getText().replace("Editar", "Agregar"));
+        this.btn_editar.setVisible(false);
+        this.btn_agregar.setVisible(true);
+        mnj_confirmacion = mnj_confirmacion.replace("edit", "agreg");
+        mnj_error = mnj_error.replace("edit", "agreg");
+    }
+    
     public void mostrarDatosEditar(Mantenimiento mantenimiento){
         this.txt_tipoMantenimiento.setText(mantenimiento.getDescripcion());
         this.cmb_estatus.setSelectedItem(mantenimiento.getEstatus());
@@ -314,6 +314,7 @@ public class UIAgregarTipoMantenimiento2 extends javax.swing.JPanel {
     }
 
     private void agregarDatosTipoMantenimiento() {
+        if(mantenimientosControlador == null) mantenimientosControlador = new Mantenimientos();
         if(!this.txt_tipoMantenimiento.getText().isEmpty()){
             mantenimiento = mantenimientosControlador.armarMantenimiento(this.txt_id.getText(),
                                                        this.txt_tipoMantenimiento.getText(),

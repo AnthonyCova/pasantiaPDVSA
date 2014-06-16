@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -334,12 +334,12 @@
                 <Component class="javax.swing.JTable" name="tbl_reportes">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="4">
+                      <Table columnCount="5" rowCount="0">
                         <Column editable="true" title="Fecha" type="java.lang.Object"/>
-                        <Column editable="true" title="Hora Parada" type="java.lang.Object"/>
-                        <Column editable="true" title="Hora Arranque" type="java.lang.Object"/>
-                        <Column editable="true" title="Descripci&#xf3;n" type="java.lang.Object"/>
-                        <Column editable="true" title="Tipo Mantenimiento" type="java.lang.Object"/>
+                        <Column editable="true" title="Bomba" type="java.lang.Object"/>
+                        <Column editable="true" title="Tiempo Inactiva" type="java.lang.Object"/>
+                        <Column editable="true" title="Mantenimiento" type="java.lang.Object"/>
+                        <Column editable="true" title="Reporta" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

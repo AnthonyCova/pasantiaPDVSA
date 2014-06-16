@@ -6,8 +6,11 @@
 
 package sisup.ui;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import sisup.clases.Falla;
+import sisup.clases.Mantenimiento;
 import sisup.controladores.ReportesControlador;
 
 /**
@@ -19,9 +22,13 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
     /**
      * Creates new form UINuevoReporte2
      */
-    public UINuevoReporte2() {
+    public UINuevoReporte2(final UIDashboard padre) {
+        super();
+        this.padre = padre;
         initComponents();
-        reportesControlador = new ReportesControlador();
+        //reportesControlador = new ReportesControlador();
+        falla = new Falla();
+        this.lbl_fallaNoDisponible.setVisible(false);
     }
 
     /**
@@ -51,14 +58,20 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
         cmb_causa = new javax.swing.JComboBox();
         txt_ScrollObservacion = new javax.swing.JScrollPane();
         txt_observacion = new javax.swing.JTextArea();
+        lbl_fallaNoDisponible = new javax.swing.JLabel();
+        lbl_bomba = new javax.swing.JLabel();
+        txt_bomba = new javax.swing.JLabel();
+        txt_causa = new javax.swing.JLabel();
+        lbl_reporta = new javax.swing.JLabel();
+        txt_reporta = new javax.swing.JLabel();
         pnl_accion = new javax.swing.JPanel();
+        btn_guardar = new javax.swing.JButton();
         btn_atras = new javax.swing.JButton();
-        btn_atras1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(850, 521));
 
         lbl_NuevoReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/nuevoReporte.png"))); // NOI18N
-        lbl_NuevoReporte.setText("Visualizar Reporte");
+        lbl_NuevoReporte.setText("Reporte");
 
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
         pnl_titulo.setLayout(pnl_tituloLayout);
@@ -85,13 +98,13 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
 
         lbl_arranque.setText("Arranque:");
 
-        lbl_causa.setText("Causa:");
+        lbl_causa.setText("Causa (*):");
 
         lbl_tfds1.setText("Tiempo fuera");
 
         lbl_tfds2.setText("de Servicio:");
 
-        lbl_observacion.setText("Observación:");
+        lbl_observacion.setText("Observación (*):");
 
         txt_registro.setText("XXX");
 
@@ -101,11 +114,22 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
 
         txt_tfds.setText("tt");
 
-        cmb_causa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         txt_observacion.setColumns(20);
         txt_observacion.setRows(5);
         txt_ScrollObservacion.setViewportView(txt_observacion);
+
+        lbl_fallaNoDisponible.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_fallaNoDisponible.setText("La falla aún no ha sido controlada por lo que el reporte aún no se encuentra disponible");
+
+        lbl_bomba.setText("Bomba:");
+
+        txt_bomba.setText("bomba");
+
+        txt_causa.setText("causa");
+
+        lbl_reporta.setText("Reporta:");
+
+        txt_reporta.setText("reporta");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,26 +138,40 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_registro)
-                    .addComponent(lbl_parada)
-                    .addComponent(lbl_arranque)
-                    .addComponent(lbl_tfds1)
-                    .addComponent(lbl_tfds2))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_arranque)
-                    .addComponent(txt_tfds)
-                    .addComponent(txt_parada)
-                    .addComponent(txt_registro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_causa)
-                        .addGap(40, 40, 40)
-                        .addComponent(cmb_causa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_observacion)
-                    .addComponent(txt_ScrollObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_registro)
+                            .addComponent(lbl_parada)
+                            .addComponent(lbl_arranque)
+                            .addComponent(lbl_tfds1)
+                            .addComponent(lbl_tfds2))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_arranque)
+                            .addComponent(txt_tfds)
+                            .addComponent(txt_parada)
+                            .addComponent(txt_registro))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_observacion)
+                            .addComponent(txt_ScrollObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_causa)
+                                    .addComponent(lbl_bomba)
+                                    .addComponent(lbl_reporta))
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_reporta)
+                                    .addComponent(txt_bomba)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cmb_causa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_causa)))))
+                        .addGap(50, 50, 50))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_fallaNoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,35 +180,54 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_registro)
                     .addComponent(txt_registro)
-                    .addComponent(lbl_causa)
-                    .addComponent(cmb_causa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(lbl_reporta)
+                    .addComponent(txt_reporta))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_parada)
+                    .addComponent(txt_parada)
+                    .addComponent(lbl_bomba)
+                    .addComponent(txt_bomba))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_arranque)
+                    .addComponent(txt_arranque)
+                    .addComponent(cmb_causa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_causa)
+                    .addComponent(lbl_causa))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_parada)
-                            .addComponent(txt_parada))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_arranque)
-                            .addComponent(txt_arranque))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_tfds1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_tfds2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(txt_tfds)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbl_tfds1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_tfds2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(txt_tfds))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_observacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_ScrollObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 113, Short.MAX_VALUE))))
+                        .addComponent(txt_ScrollObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_fallaNoDisponible)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
+
+        btn_guardar.setBackground(new java.awt.Color(204, 204, 255));
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/atras.png"))); // NOI18N
+        btn_guardar.setText("Guardar");
+        btn_guardar.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 14, 14, 14));
+        btn_guardar.setBorderPainted(false);
+        btn_guardar.setHorizontalTextPosition(SwingConstants.CENTER);
+        btn_guardar.setMargin(new java.awt.Insets(14, 14, 14, 14));
+        btn_guardar.setOpaque(false);
+        btn_guardar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btn_guardar.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         btn_atras.setBackground(new java.awt.Color(204, 204, 255));
         btn_atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/atras.png"))); // NOI18N
@@ -188,41 +245,22 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
             }
         });
 
-        btn_atras1.setBackground(new java.awt.Color(204, 204, 255));
-        btn_atras1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/atras.png"))); // NOI18N
-        btn_atras1.setText("Atrás");
-        btn_atras1.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 14, 14, 14));
-        btn_atras1.setBorderPainted(false);
-        btn_atras1.setHorizontalTextPosition(SwingConstants.CENTER);
-        btn_atras1.setMargin(new java.awt.Insets(14, 14, 14, 14));
-        btn_atras1.setOpaque(false);
-        btn_atras1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btn_atras1.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btn_atras1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_atras1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnl_accionLayout = new javax.swing.GroupLayout(pnl_accion);
         pnl_accion.setLayout(pnl_accionLayout);
         pnl_accionLayout.setHorizontalGroup(
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_accionLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_atras)
+                .addComponent(btn_guardar)
                 .addGap(18, 18, 18)
-                .addComponent(btn_atras1)
+                .addComponent(btn_atras)
                 .addContainerGap())
         );
         pnl_accionLayout.setVerticalGroup(
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_accionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_atras)
-                    .addComponent(btn_atras1))
-                .addContainerGap())
+            .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btn_guardar)
+                .addComponent(btn_atras))
         );
 
         javax.swing.GroupLayout pnl_contentLayout = new javax.swing.GroupLayout(pnl_content);
@@ -243,9 +281,8 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
         pnl_contentLayout.setVerticalGroup(
             pnl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_contentLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(pnl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -264,26 +301,30 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atrasActionPerformed
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         crearReporte();
-    }//GEN-LAST:event_btn_atrasActionPerformed
+    }//GEN-LAST:event_btn_guardarActionPerformed
 
-    private void btn_atras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atras1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_atras1ActionPerformed
+    private void btn_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atrasActionPerformed
+        limpiarCampos();
+        padre.cambiapanel(UIDashboard.enm_paneles.UIDASHBOARD);
+    }//GEN-LAST:event_btn_atrasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_atras;
-    private javax.swing.JButton btn_atras1;
+    private javax.swing.JButton btn_guardar;
     private javax.swing.JComboBox cmb_causa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_NuevoReporte;
     private javax.swing.JLabel lbl_arranque;
+    private javax.swing.JLabel lbl_bomba;
     private javax.swing.JLabel lbl_causa;
+    private javax.swing.JLabel lbl_fallaNoDisponible;
     private javax.swing.JLabel lbl_observacion;
     private javax.swing.JLabel lbl_parada;
     private javax.swing.JLabel lbl_registro;
+    private javax.swing.JLabel lbl_reporta;
     private javax.swing.JLabel lbl_tfds1;
     private javax.swing.JLabel lbl_tfds2;
     private javax.swing.JPanel pnl_accion;
@@ -291,24 +332,39 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_titulo;
     private javax.swing.JScrollPane txt_ScrollObservacion;
     private javax.swing.JLabel txt_arranque;
+    private javax.swing.JLabel txt_bomba;
+    private javax.swing.JLabel txt_causa;
     private javax.swing.JTextArea txt_observacion;
     private javax.swing.JLabel txt_parada;
     private javax.swing.JLabel txt_registro;
+    private javax.swing.JLabel txt_reporta;
     private javax.swing.JLabel txt_tfds;
     // End of variables declaration//GEN-END:variables
 
     UIDashboard padre;
-    ReportesControlador reportesControlador;
-    
-    private void mostrarDatosReporte(Falla falla){
-        
-    }
+    //ReportesControlador reportesControlador;
+    Falla falla;
 
     private void crearReporte() {
-        padre.cambiapanel(UIDashboard.enm_paneles.UIDASHBOARD);
+        if(!this.txt_observacion.getText().equals("")){
+            falla.setMantenimiento((String)this.cmb_causa.getSelectedItem());
+            falla.setIdMantenimiento(padre.reportesControlador.getIdMantenimiento((String)this.cmb_causa.getSelectedItem()));
+            falla.setObservacion(this.txt_observacion.getText());
+            falla.setIdUsuario(padre.getIdUsuario());
+            falla.setUsuario(padre.getUsuario());
+            falla.setEstatus("Cerrada");
+            if(padre.reportesControlador.guardarReporte(falla) != -1){
+                JOptionPane.showMessageDialog(null, "Se ha guardado el reporte satisfactoriamente", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                padre.cambiapanel(UIDashboard.enm_paneles.UIDASHBOARD);
+            } else JOptionPane.showMessageDialog(null, "Ha ocurrido un error guardando el reporte", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                
+            
+        } else JOptionPane.showMessageDialog(null, "Por favor complete todos los campos ya que son obligatorios", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+        
     }
     
     public void setModoFalla(Falla falla){
+        this.falla = falla;
         if(falla.getEstatus().equals("Activa"))
             mostrarFallaActiva();
         else if(falla.getEstatus().equals("Controlada"))
@@ -317,14 +373,73 @@ public class UINuevoReporte2 extends javax.swing.JPanel {
     }
 
     private void mostrarFallaActiva() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        activarComponentes(false);
+        this.btn_guardar.setVisible(false);
+    }
+    
+    private void activarComponentes(boolean activo){
+        this.lbl_arranque.setVisible(activo);
+        this.lbl_registro.setVisible(activo);
+        this.lbl_parada.setVisible(activo);
+        this.lbl_tfds1.setVisible(activo);
+        this.lbl_tfds2.setVisible(activo);
+        this.lbl_causa.setVisible(activo);
+        this.lbl_observacion.setVisible(activo);
+        this.lbl_bomba.setVisible(activo);
+        this.lbl_reporta.setVisible(activo);
+        
+        this.txt_registro.setVisible(activo);
+        this.txt_parada.setVisible(activo);
+        this.txt_arranque.setVisible(activo);
+        this.txt_tfds.setVisible(activo);
+        this.cmb_causa.setVisible(activo);
+        this.txt_causa.setVisible(activo);
+        this.txt_observacion.setVisible(activo);
+        this.txt_ScrollObservacion.setVisible(activo);
+        this.txt_bomba.setVisible(activo);
+        this.txt_reporta.setVisible(activo);
+        this.lbl_fallaNoDisponible.setVisible(!activo);
     }
 
     private void mostrarFallaControlada() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        activarComponentes(true);
+        this.btn_guardar.setVisible(true);
+        llenarDatosBasicos();
+        llenarCmbCausas();
+        this.txt_causa.setVisible(false);
+        this.txt_bomba.setText(falla.getBomba().getTag());
+        this.txt_reporta.setText(padre.getIdUsuario());
+        this.txt_reporta.setVisible(false);
+        this.lbl_reporta.setVisible(false);
     }
 
     private void mostrarFallaCerrada() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        activarComponentes(true);
+        this.btn_guardar.setVisible(false);
+        this.cmb_causa.setVisible(false);
+        this.txt_causa.setText(falla.getMantenimiento());
+        this.txt_observacion.setText(falla.getObservacion());
+        this.txt_observacion.setEditable(false);
+        this.txt_bomba.setText(falla.getBomba().getDescripcionTag());
+        this.txt_reporta.setText(falla.getUsuario());
+    }
+
+    private void limpiarCampos() {
+        this.txt_observacion.setText("");
+        this.cmb_causa.setSelectedIndex(0);
+    }
+
+    private void llenarDatosBasicos() {
+        this.txt_registro.setText(falla.getId());
+        this.txt_parada.setText(falla.getFechaInicioFormat());
+        this.txt_arranque.setText(falla.getFechaFinalFormat());
+        this.txt_tfds.setText(falla.getTiempoFueraServicio());
+    }
+
+    private void llenarCmbCausas() {
+        ArrayList<Mantenimiento> listaMantenimientos = padre.reportesControlador.getListaMantenimientos();
+        for (Mantenimiento mant : listaMantenimientos){
+            this.cmb_causa.addItem(mant.getDescripcion());
+        }
     }
 }

@@ -38,6 +38,8 @@ Properties properties = null;
     public final static String FLAGLDAP = "ldap";
     /** Senal para falla de bomba **/
     public final static String SENALFALLABOMBA = "senalFallaBomba";
+            
+    public final static String CANTIDADBOMBASDASHBOARD = "cantidadBombasDashboard";
     
     private Configuracion() {
         this.properties = new Properties();

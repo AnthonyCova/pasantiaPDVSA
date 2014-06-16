@@ -33,6 +33,9 @@ public class UIDashboard extends javax.swing.JFrame {
     public UIDashboard() {
         initComponents();
         iniciarVentanas();
+        this.txt_idUsuario.setVisible(false);
+        this.txt_usuario.setVisible(false);
+        CargarTablaFallas();
     }
 
     /**
@@ -49,6 +52,8 @@ public class UIDashboard extends javax.swing.JFrame {
         pnl_dashboard = new javax.swing.JPanel();
         pnl_titulo = new javax.swing.JPanel();
         lbl_titulo = new javax.swing.JLabel();
+        txt_idUsuario = new javax.swing.JTextField();
+        txt_usuario = new javax.swing.JTextField();
         pnl_tabla = new javax.swing.JPanel();
         pnl_content = new javax.swing.JScrollPane();
         tbl_resumenReportes = new javax.swing.JTable();
@@ -84,6 +89,12 @@ public class UIDashboard extends javax.swing.JFrame {
         lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/alarma.png"))); // NOI18N
         lbl_titulo.setText("Resumen de Alarmas");
 
+        txt_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_usuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
         pnl_titulo.setLayout(pnl_tituloLayout);
         pnl_tituloLayout.setHorizontalGroup(
@@ -91,13 +102,20 @@ public class UIDashboard extends javax.swing.JFrame {
             .addGroup(pnl_tituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_titulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(txt_idUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(591, Short.MAX_VALUE))
         );
         pnl_tituloLayout.setVerticalGroup(
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_tituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_titulo)
+                .addGroup(pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_titulo)
+                    .addComponent(txt_idUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -300,6 +318,10 @@ public class UIDashboard extends javax.swing.JFrame {
         cambiapanel(enm_paneles.UIDASHBOARD);
     }//GEN-LAST:event_mit_HomeMouseClicked
 
+    private void txt_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_usuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -353,6 +375,8 @@ public class UIDashboard extends javax.swing.JFrame {
     protected javax.swing.JPanel pnl_tabla;
     protected javax.swing.JPanel pnl_titulo;
     private javax.swing.JTable tbl_resumenReportes;
+    private javax.swing.JTextField txt_idUsuario;
+    private javax.swing.JTextField txt_usuario;
     // End of variables declaration//GEN-END:variables
 
     //Instanacia de las vistas
@@ -386,7 +410,7 @@ public class UIDashboard extends javax.swing.JFrame {
         uiBombas = new UIBombas(this);
         uiUsuarios = new UIUsuarios(this);
         uiGenerarReporte = new UIGenerarReporte(this);
-        uiNuevoReporte = new UINuevoReporte2();
+        uiNuevoReporte = new UINuevoReporte2(this);
         
         uiAgregarUsuario = new UIAgregarUsuario2(this);
         uiAgregarTipoMantenimiento = new UIAgregarTipoMantenimiento2(this);
@@ -403,6 +427,8 @@ public class UIDashboard extends javax.swing.JFrame {
         card.addLayoutComponent(uiAgregarUsuario, enm_paneles.UIAGREGARUSUARIO.toString());
         card.addLayoutComponent(uiAgregarTipoMantenimiento, enm_paneles.UIAGREGARTIPOMANTENIMIENTO.toString());
         card.addLayoutComponent(uiAgregarBomba, enm_paneles.UIAGREGARBOMBA.toString());
+        card.addLayoutComponent(uiNuevoReporte, enm_paneles.UINUEVOREPORTE.toString());
+        
         
         //Agregar las vistas al panel principal
         pnl_principal.add(uiUsuarios);
@@ -412,6 +438,7 @@ public class UIDashboard extends javax.swing.JFrame {
         pnl_principal.add(uiAgregarUsuario);
         pnl_principal.add(uiAgregarTipoMantenimiento);
         pnl_principal.add(uiAgregarBomba);
+        pnl_principal.add(uiNuevoReporte);
         
         pnl_principal.setLayout(card);
         card.show(pnl_principal, enm_paneles.UIDASHBOARD.toString());
@@ -446,18 +473,29 @@ public class UIDashboard extends javax.swing.JFrame {
         card.show(pnl_principal, panel.toString());
     }
     
-    public void asignarUsuario(String nombre, String rol){
+    public void asignarUsuario(String nombre, String rol, String Id){
         //Alineación de nombre de usuario a la derecha
         javax.swing.JMenu mit_nombreUsuario = new javax.swing.JMenu();
         mit_nombreUsuario.setText("Bienvenido, " + nombre);
         men_menu.add(Box.createHorizontalGlue());
         men_menu.add(mit_nombreUsuario);
         
+        this.txt_idUsuario.setText(Id);
+        this.txt_usuario.setText(nombre);
+        
         if(!rol.equals("Administrador"))
             mit_Administrar.setVisible(false);
     }
     
-    public void CargarTablaUsuarios() {
+    public String getIdUsuario(){
+        return this.txt_idUsuario.getText();
+    }
+    
+    public String getUsuario(){
+        return this.txt_usuario.getText();
+    }
+    
+    public void CargarTablaFallas() {
         if (reportesControlador == null) reportesControlador = new ReportesControlador();
 
         Object[][] data = reportesControlador.getListaBombasParadas();
@@ -478,7 +516,7 @@ public class UIDashboard extends javax.swing.JFrame {
                     String var = table.getModel().getValueAt(modelRow, 0).toString();
                     String ac = e.getActionCommand();
                     uiNuevoReporte.setModoFalla(reportesControlador.getFallaReportar(modelRow));
-                    cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
+                    cambiapanel(UIDashboard.enm_paneles.UINUEVOREPORTE);
                 }
             };
 
@@ -503,7 +541,8 @@ public class UIDashboard extends javax.swing.JFrame {
         UIAGREGARUSUARIO,
         UIAGREGARBOMBA,
         UIAGREGARTIPOMANTENIMIENTO,
-        UIGENERARREPORTE;
+        UIGENERARREPORTE,
+        UINUEVOREPORTE;
     }
     
 }

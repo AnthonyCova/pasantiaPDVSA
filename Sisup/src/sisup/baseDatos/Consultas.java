@@ -7,7 +7,6 @@ package sisup.baseDatos;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sisup.metodos.MetodosBomba;
@@ -116,6 +115,29 @@ public class Consultas {
             }
     }
      
+     public static java.util.ArrayList<sisup.clases.Mantenimiento> obtenerMantenimientosActivos(){
+            java.util.ArrayList<sisup.clases.Mantenimiento> mantenimientos = new java.util.ArrayList<>();
+            String sql="Select idmantenimiento, descripcion from mantenimiento where estatus = 'Activo';";
+            Conexion conexion = new Conexion();
+            java.sql.ResultSet resultado;
+            conexion.conectar();
+            resultado = conexion.consulta(sql);
+            try {
+                while(resultado.next()){
+                    sisup.clases.Mantenimiento mantenimiento =new sisup.clases.Mantenimiento();
+                    mantenimiento.setDescripcion(resultado.getString("descripcion"));
+                    mantenimiento.setEstatus("Activo");
+                    mantenimiento.setId(resultado.getString("idmantenimiento"));
+                    mantenimientos.add(mantenimiento);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MetodosBomba.class.getName()).log(Level.SEVERE, null, ex);
+            }finally{
+                conexion.cierraConexion();
+                return mantenimientos;
+            }
+    }
+     
     public static int insertarMantenimiento(String descripcion, String estatus){
             String sql= String.format("insert into mantenimiento (descripcion, estatus) values('%s','%s'); ", descripcion,estatus);
             Conexion conexion = new Conexion();
@@ -139,7 +161,7 @@ public class Consultas {
     
     public static java.util.ArrayList<sisup.clases.Bomba>  obtenerBombasParada(String senal){
             java.util.ArrayList<sisup.clases.Bomba> bombas = new java.util.ArrayList<>();
-            String sql= String.format("Select idbomba, tag, descripcion, estatus, horaArranque, senal from bomba where senal in ('%s');", senal);
+            String sql= String.format("Select idbomba, tag, descripcionTag from bomba where senal in (%s);", senal);
             Conexion conexion = new Conexion();
             java.sql.ResultSet resultado;
             conexion.conectar();
@@ -150,9 +172,6 @@ public class Consultas {
                     bomba.setTag(resultado.getString("tag"));
                     bomba.setDescripcionTag(resultado.getString("descripcionTag"));
                     bomba.setId(resultado.getString("idbomba"));
-                    bomba.setEstatus(resultado.getString("estatus"));
-                    bomba.setHoraArranque(resultado.getString("horaArranque"));
-                    bomba.setSenal(resultado.getString("senal"));
                     bombas.add(bomba);
                 }
             } catch (SQLException ex) {
@@ -187,8 +206,8 @@ public class Consultas {
             }
     }
     
-    public static int  insertarBomba(String tag, String descripcion, String status, String horaArranque){
-            String sql= String.format("insert into bomba (tag, descripcion, estatus, horaArranque) values('%s','%s','%s','%s'); ", tag, descripcion,status, horaArranque);
+    public static int  insertarBomba(String tag, String descripcion, String status, String horaArranque, String senal){
+            String sql= String.format("insert into bomba (tag, descripcionTag, estatus, horaArranque, senal) values('%s','%s','%s','%s','%s'); ", tag, descripcion, status, horaArranque, senal);
             Conexion conexion = new Conexion();
             int resultado;
             conexion.conectar();
@@ -198,7 +217,7 @@ public class Consultas {
     }
     
     public static int actualizarBomba(String tag, String descripcion, String status, String horaArranque, String id){
-            String sql= String.format("Update  bomba set tag='%s', descripcion='%s' , estatus='%s' , horaArranque='%s' where idbomba=%s; ", tag, descripcion,status, horaArranque, id);
+            String sql= String.format("Update  bomba set tag='%s', descripcionTag='%s' , estatus='%s' , horaArranque='%s' where idbomba=%s; ", tag, descripcion,status, horaArranque, id);
             Conexion conexion = new Conexion();
             int resultado;
             conexion.conectar();
@@ -227,12 +246,44 @@ public class Consultas {
                     falla.setMantenimiento(resultado.getString("mantenimiento"));
                     falla.setIdUsuario(resultado.getString("idusuario"));
                     falla.setUsuario(resultado.getString("usuario"));
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
-                    calendar.setTime(sdf.parse(resultado.getString("inicio")));
-                    falla.setFechaInicio(calendar);
-                    calendar.setTime(sdf.parse(resultado.getString("fin")));
-                    falla.setFechaFinal(calendar);
+                    falla.setFechaInicio(resultado.getString("inicio"));
+                    falla.setFechaFinal(resultado.getString("fin"));
+                    falla.setObservacion(resultado.getString("observacion"));
+                    falla.setEstatus(resultado.getString("estatus"));
+                    falla.setId(resultado.getString("idfalla"));
+                    fallas.add(falla);
+                }
+                conexion.cierraConexion();
+                return fallas;
+            } catch (SQLException ex) {
+                Logger.getLogger(MetodosBomba.class.getName()).log(Level.SEVERE, null, ex);
+            }finally{
+                conexion.cierraConexion();
+                return fallas;
+            }
+    }
+            
+     public static java.util.ArrayList<sisup.clases.Falla> consultarUltimasFallas(String cantidadBombas){
+            String sql= String.format("Select f.idbomba, b.tag, b.descripcionTag, f.idfalla, f.idmantenimiento, m.descripcion ,f.idusuario, u.nombre, f.inicio, f.final, f.observacion, f.estatus from falla f left join bomba b on b.idbomba=f.idbomba left join mantenimiento m on m.idmantenimiento=f.idmantenimiento left join usuario u on u.idusuario=f.idusuario where b.estatus = 'Activo' order by idfalla desc limit %s;", cantidadBombas);
+            Conexion conexion = new Conexion();
+            java.sql.ResultSet resultado;
+            conexion.conectar();
+            resultado = conexion.consulta(sql);
+            java.util.ArrayList<sisup.clases.Falla> fallas = new java.util.ArrayList<>();
+            try {
+                while(resultado.next()){
+                    sisup.clases.Falla falla =new sisup.clases.Falla();
+                    sisup.clases.Bomba bomba =new sisup.clases.Bomba();
+                    bomba.setId(resultado.getString("idbomba"));
+                    bomba.setTag(resultado.getString("tag"));
+                    bomba.setDescripcionTag(resultado.getString("descripcionTag"));
+                    falla.setBomba(bomba);
+                    falla.setIdMantenimiento(resultado.getString("idmantenimiento"));
+                    falla.setMantenimiento(resultado.getString("descripcion"));
+                    falla.setIdUsuario(resultado.getString("idusuario"));
+                    falla.setUsuario(resultado.getString("nombre"));
+                    falla.setFechaInicio(resultado.getString("inicio"));
+                    falla.setFechaFinal(resultado.getString("final"));
                     falla.setObservacion(resultado.getString("observacion"));
                     falla.setEstatus(resultado.getString("estatus"));
                     falla.setId(resultado.getString("idfalla"));
@@ -295,7 +346,7 @@ public class Consultas {
      * @return java.sql.ResultSet
      */
     public static int  insertarFalla(String idbomba, String inicio, String estatus){
-            String sql= String.format("insert into falla (idbomba, inicio, estatus) values(%s,%s,%s); ",idbomba , inicio, estatus );
+            String sql= String.format("insert into falla (idbomba, inicio, estatus) values(%s,'%s','%s'); ",idbomba , inicio, estatus );
             Conexion conexion = new Conexion();
             int resultado;
             conexion.conectar();
@@ -303,5 +354,41 @@ public class Consultas {
             conexion.cierraConexion();
             return resultado;
 
+    }
+    
+    public static java.util.ArrayList<sisup.clases.Falla> consultarFallasPorFecha(String desde, String hasta){
+            String sql= String.format("SELECT * FROM falla f, mantenimiento m, usuario u, bomba b WHERE f.idmantenimiento = m.idmantenimiento and f.idusuario = u.idusuario and f.idbomba = b.idbomba and f.inicio between '%s' and '%s' and f.estatus = 'Cerrada';", desde, hasta);
+            Conexion conexion = new Conexion();
+            java.sql.ResultSet resultado;
+            conexion.conectar();
+            resultado = conexion.consulta(sql);
+            java.util.ArrayList<sisup.clases.Falla> fallas = new java.util.ArrayList<>();
+            try {
+                while(resultado.next()){
+                    sisup.clases.Falla falla =new sisup.clases.Falla();
+                    sisup.clases.Bomba bomba =new sisup.clases.Bomba();
+                    bomba.setId(resultado.getString("idbomba"));
+                    bomba.setTag(resultado.getString("tag"));
+                    bomba.setDescripcionTag(resultado.getString("descripcionTag"));
+                    falla.setBomba(bomba);
+                    falla.setIdMantenimiento(resultado.getString("idmantenimiento"));
+                    falla.setMantenimiento(resultado.getString("descripcion"));
+                    falla.setIdUsuario(resultado.getString("idusuario"));
+                    falla.setUsuario(resultado.getString("nombre"));
+                    falla.setFechaInicio(resultado.getString("inicio"));
+                    falla.setFechaFinal(resultado.getString("final"));
+                    falla.setObservacion(resultado.getString("observacion"));
+                    falla.setEstatus(resultado.getString("estatus"));
+                    falla.setId(resultado.getString("idfalla"));
+                    fallas.add(falla);
+                }
+                conexion.cierraConexion();
+                return fallas;
+            } catch (SQLException ex) {
+                Logger.getLogger(MetodosBomba.class.getName()).log(Level.SEVERE, null, ex);
+            }finally{
+                conexion.cierraConexion();
+                return fallas;
+            }
     }
 }

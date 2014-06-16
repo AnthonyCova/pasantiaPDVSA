@@ -222,7 +222,7 @@ public class UILogin extends javax.swing.JFrame {
     private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
         if (ValidarCampos() && login.ConsultarDatosLogin(txt_usuario.getText().toString(),txt_clave.getPassword().toString())){
             uiDashboard = new UIDashboard();
-            uiDashboard.asignarUsuario(login.getUsuario().getNombre(), login.getUsuario().getRol());
+            uiDashboard.asignarUsuario(login.getUsuario().getNombre(), login.getUsuario().getRol(), login.getUsuario().getId());
             uiDashboard.setVisible(true);
             this.setVisible(false);
         } 

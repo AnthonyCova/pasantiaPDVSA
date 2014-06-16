@@ -25,4 +25,10 @@ public class MetodosMantenimiento {
         mantenimientos = sisup.baseDatos.Consultas.obtenerMantenimientos();
         return mantenimientos;
     }
+    
+    public java.util.ArrayList<sisup.clases.Mantenimiento>  getMantenimientosActivos(){
+        java.util.ArrayList<sisup.clases.Mantenimiento> mantenimientos;
+        mantenimientos = sisup.baseDatos.Consultas.obtenerMantenimientosActivos();
+        return mantenimientos;
+    }
 }

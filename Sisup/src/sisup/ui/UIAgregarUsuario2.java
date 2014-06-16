@@ -25,8 +25,6 @@ public class UIAgregarUsuario2 extends javax.swing.JPanel {
         this.padre = padre;
         initComponents();
         btn_editar.setVisible(false);
-        lbl_estatus.setVisible(false);
-        cmb_estatus.setVisible(false);
         txt_id.setVisible(false);
     }
 
@@ -403,12 +401,19 @@ public class UIAgregarUsuario2 extends javax.swing.JPanel {
         this.modoEditar = true;
         mostrarDatosEditar(usuario);
         this.lbl_titulo.setText(this.lbl_titulo.getText().replace("Agregar", "Editar"));
-        btn_editar.setVisible(true);
+        this.btn_editar.setVisible(true);
         this.btn_agregar.setVisible(false);
-        lbl_estatus.setVisible(true);
-        cmb_estatus.setVisible(true);
-        mnj_confirmacion = mnj_confirmacion.replace("agreg", "edit");
-        mnj_error = mnj_error.replace("agreg", "edit");
+        this.mnj_confirmacion = this.mnj_confirmacion.replace("agreg", "edit");
+        this.mnj_error = this.mnj_error.replace("agreg", "edit");
+    }
+    
+    public void setModoAgregar(){
+        this.modoEditar = false;
+        this.lbl_titulo.setText(this.lbl_titulo.getText().replace("Editar", "Agregar"));
+        this.btn_editar.setVisible(false);
+        this.btn_agregar.setVisible(true);
+        this.mnj_confirmacion = this.mnj_confirmacion.replace("edit", "agreg");
+        this.mnj_error = this.mnj_error.replace("edit", "agreg");
     }
     
     public void mostrarDatosEditar(Usuario usuario){
@@ -424,8 +429,9 @@ public class UIAgregarUsuario2 extends javax.swing.JPanel {
 
     private void agregarDatosUsuario() {
         if(usuariosControlador == null) usuariosControlador = new UsuariosControlador();
+        String a= this.txt_id.getText();
         if(ValidarDatos()){
-            usuario = usuariosControlador.armarUsuario(this.txt_id.getText(),
+            usuario = usuariosControlador.armarUsuario(a,
                                                        this.txt_nombres.getText(),
                                                        this.txt_cedula.getText(),
                                                        this.txt_correo.getText(),

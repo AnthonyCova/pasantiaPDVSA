@@ -318,10 +318,17 @@ public class UIAgregarBomba2 extends javax.swing.JPanel {
         this.lbl_titulo.setText(this.lbl_titulo.getText().replace("Agregar", "Editar"));
         btn_editar.setVisible(true);
         this.btn_agregar.setVisible(false);
-        lbl_estatus.setVisible(true);
-        cmb_estatus.setVisible(true);
         mnj_confirmacion = mnj_confirmacion.replace("agreg", "edit");
         mnj_error = mnj_error.replace("agreg", "edit");
+    }
+    
+    public void setModoAgregar() {
+        this.modoEditar = false;
+        this.lbl_titulo.setText(this.lbl_titulo.getText().replace("Editar", "Agregar"));
+        btn_editar.setVisible(false);
+        this.btn_agregar.setVisible(true);
+        mnj_confirmacion = mnj_confirmacion.replace("edit", "agreg");
+        mnj_error = mnj_error.replace("edit", "agreg");
     }
     
     public void mostrarDatosEditar(Bomba bomba){
@@ -332,6 +339,7 @@ public class UIAgregarBomba2 extends javax.swing.JPanel {
     }
 
     private void agregarDatosBomba() {
+        if (bombasControlador == null) bombasControlador = new BombasControlador();
         if(ValidarDatos()){
             bomba = bombasControlador.armarBomba(this.txt_id.getText(),
                                                        this.txt_tag.getText(),

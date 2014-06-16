@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 package sisup.clases;
-
-import java.util.Calendar;
-
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
+import org.joda.time.Period;
 /**
  *
  * @author Tony C
@@ -17,8 +18,8 @@ public class Falla {
     private String mantenimiento;
     private String idUsuario;
     private String usuario;
-    private Calendar FechaInicio;
-    private Calendar FechaFinal;
+    private String FechaInicio;
+    private String FechaFinal;
     private String observacion;
     private String estatus;
     private String tiempoFueraServicio;
@@ -83,25 +84,38 @@ public class Falla {
         return FechaInicio.toString();
     }
     
-    public Calendar getFechaInicio() {
+    public String getFechaInicio() {
         return FechaInicio;
     }
+    
+    public String getFechaInicioFormat(){
+        String[] fia = FechaInicio.split("-");
+        String[] seg = fia[2].split(" ");
+        return seg[0] + "-" + fia[1] + "-" + fia[0] + " " + seg[1];
+    }
 
-    public void setFechaInicio(Calendar FechaInicio) {
+    public void setFechaInicio(String FechaInicio) {
         this.FechaInicio = FechaInicio;
     }
 
-    public Calendar getFechaFinal() {
+    public String getFechaFinal() {
         return FechaFinal;
     }
     
     public String getFechaFinalString() {
         return FechaFinal.toString();
     }
+    
+    public String getFechaFinalFormat(){
+        String[] fia = FechaFinal.split("-");
+        String[] seg = fia[2].split(" ");
+        return seg[0] + "-" + fia[1] + "-" + fia[0] + " " + seg[1];
+    }
 
-    public void setFechaFinal(Calendar FechaFinal) {
+    public void setFechaFinal(String FechaFinal) {
         this.FechaFinal = FechaFinal;
-        calcularTiempoFueraServicio();
+        if(FechaFinal != null)
+            calcularTiempoFueraServicio();
     }
 
     public String getObservacion() {
@@ -130,21 +144,61 @@ public class Falla {
 
     private void calcularTiempoFueraServicio() {
         String diferencia = "";
-        long diff = FechaFinal.getTimeInMillis() - FechaInicio.getTimeInMillis();
+        String[] fia = FechaInicio.split("-");
+        String[] hor = fia[2].split(" ");
+        String[] seg = hor[1].split(":");
+        String[] mis = seg[2].split("\\.");
         
-        //diferencia en dias
-        long diffDays = diff / (24 * 60 * 60 * 1000);
-        if(diffDays>0) {diferencia += diffDays + "dia"; diferencia += diffDays > 1 ? "s" : ""; diff -= (diffDays * 24 * 60 * 60 * 1000);}
+        DateTime FechaInicioaux = new DateTime(Integer.parseInt(fia[0]), 
+                                              Integer.parseInt(fia[1]), 
+                                              Integer.parseInt(hor[0]), 
+                                              Integer.parseInt(seg[0]), 
+                                              Integer.parseInt(seg[1]),
+                                              Integer.parseInt(mis[0]));
+        
+        fia = FechaFinal.split("-");
+        hor = fia[2].split(" ");
+        seg = hor[1].split(":");
+        mis = seg[2].split("\\.");
+        
+        DateTime FechaFinalaux = new DateTime(Integer.parseInt(fia[0]), 
+                                              Integer.parseInt(fia[1]), 
+                                              Integer.parseInt(hor[0]), 
+                                              Integer.parseInt(seg[0]), 
+                                              Integer.parseInt(seg[1]),
+                                              Integer.parseInt(mis[0]));
+        
+        Period dur = new Period(FechaInicioaux,FechaFinalaux);
+        
+        int tiempo = dur.getDays();
+        if (tiempo > 0) {diferencia += tiempo + " dia"; diferencia += tiempo > 1 ? "s " : " ";}
+        
+        
+        Period dur2 = dur.minusDays(tiempo);
+        tiempo = dur2.getHours();
+        if (tiempo > 0) {diferencia += tiempo + "h ";} 
+        
+        FechaFinalaux = FechaFinalaux.minus(dur2.getHours());
+        Period dur3 = dur2.minusHours(tiempo);
+        tiempo = dur3.getMinutes();
+        if (tiempo > 0) {diferencia += tiempo + "m ";} 
+        
+        Period dur4 = dur3.minusMinutes(tiempo);
+        tiempo = dur4.getSeconds();
+        if (tiempo > 0) {diferencia += tiempo + "s ";} 
+        
+        /*diferencia en dias
+        long diffDays = duracion / (24 * 60 * 60 * 1000);
+        if(diffDays>0) {diferencia += diffDays + "dia"; diferencia += diffDays > 1 ? "s" : ""; duracion -= (diffDays * 24 * 60 * 60 * 1000);}
         //diferencia en horas
-        long diffHours = diff / (60 * 60 * 1000);
-        if(diffHours>0) {diferencia += diffHours + "hora"; diferencia += diffHours > 1 ? "s" : ""; diff -= (diffHours * 60 * 60 * 1000);}
+        long diffHours = duracion / (60 * 60 * 1000);
+        if(diffHours>0) {diferencia += diffHours + "hora"; diferencia += diffHours > 1 ? "s" : ""; duracion -= (diffHours * 60 * 60 * 1000);}
         //diferencia en minutos
-        long diffMinutes = diff / (60 * 1000);
-        if(diffMinutes>0) {diferencia += diffMinutes + "minuto"; diferencia += diffMinutes > 1 ? "s" : ""; diff -= (diffMinutes * 60 * 1000);}
+        long diffMinutes = duracion / (60 * 1000);
+        if(diffMinutes>0) {diferencia += diffMinutes + "minuto"; diferencia += diffMinutes > 1 ? "s" : ""; duracion -= (diffMinutes * 60 * 1000);}
         //diferencia en segundos
-        long diffSeconds = diff / 1000;
-        if(diffSeconds>0) {diferencia += diffSeconds + "segundo"; diferencia += diffSeconds > 1 ? "s" : ""; diff -= (diffSeconds * 1000);}
-        
-        setTiempoFueraServicio(diferencia);
+        long diffSeconds = duracion / 1000;
+        if(diffSeconds>0) {diferencia += diffSeconds + "segundo"; diferencia += diffSeconds > 1 ? "s" : ""; duracion -= (diffSeconds * 1000);}
+        */setTiempoFueraServicio(diferencia);
     }
 }

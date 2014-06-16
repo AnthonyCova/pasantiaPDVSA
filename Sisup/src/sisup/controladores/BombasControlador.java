@@ -7,6 +7,7 @@
 package sisup.controladores;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import sisup.clases.Bomba;
 import sisup.metodos.MetodosBomba;
 
@@ -37,6 +38,9 @@ public class BombasControlador {
         bomba.setTag(tag);
         bomba.setDescripcionTag(descripcion);
         bomba.setEstatus(estatus);
+        java.sql.Date sDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        bomba.setHoraArranque(sDate.toString());
+        bomba.setSenal("0");
         return bomba;
     }
     

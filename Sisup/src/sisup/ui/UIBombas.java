@@ -8,6 +8,7 @@ package sisup.ui;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -56,6 +57,7 @@ public class UIBombas extends javax.swing.JPanel {
         setOpaque(false);
 
         pnl_bombas.setOpaque(false);
+        pnl_bombas.setPreferredSize(new java.awt.Dimension(800, 451));
 
         pnl_titulo.setOpaque(false);
 
@@ -141,7 +143,9 @@ public class UIBombas extends javax.swing.JPanel {
         );
 
         pnl_listadoBombas.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Bombas"));
+        pnl_listadoBombas.setMinimumSize(new java.awt.Dimension(200, 400));
         pnl_listadoBombas.setOpaque(false);
+        pnl_listadoBombas.setPreferredSize(new java.awt.Dimension(780, 313));
 
         tbl_bombas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -162,15 +166,15 @@ public class UIBombas extends javax.swing.JPanel {
             pnl_listadoBombasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_listadoBombasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnl_listadoBombasLayout.setVerticalGroup(
             pnl_listadoBombasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_listadoBombasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_listadoBombasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(109, 109, 109))
         );
 
         javax.swing.GroupLayout pnl_bombasLayout = new javax.swing.GroupLayout(pnl_bombas);
@@ -193,7 +197,8 @@ public class UIBombas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_listadoBombas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnl_listadoBombas, javax.swing.GroupLayout.PREFERRED_SIZE, 300, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -205,8 +210,8 @@ public class UIBombas extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnl_bombas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnl_bombas, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -215,6 +220,7 @@ public class UIBombas extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_atrasActionPerformed
 
     private void btn_agregarBombaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarBombaActionPerformed
+        padre.uiAgregarBomba.setModoAgregar();
         padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARBOMBA);
     }//GEN-LAST:event_btn_agregarBombaActionPerformed
 
@@ -261,8 +267,8 @@ public class UIBombas extends javax.swing.JPanel {
                 }
             };
 
-            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 4);
-            //buttonColumn.setMnemonic(KeyEvent.VK_D);
+            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 2);
+            buttonColumn.setMnemonic(KeyEvent.VK_D);
 
             JScrollPane scroll = new JScrollPane(table2);
             scroll.setPreferredSize(new java.awt.Dimension(400, 200));

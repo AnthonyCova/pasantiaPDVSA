@@ -44,14 +44,21 @@ public class Mantenimientos {
         listaMantenimientos = metodosMantenimiento.getMantenimientos();
         Object[][] data = new Object[listaMantenimientos.size()][3];
         int i = 0;
-        for (Mantenimiento usuario : listaMantenimientos){
-            data[i][0] = usuario.getDescripcion();
-            data[i][1] = usuario.getEstatus();
+        for (Mantenimiento mantenimiento : listaMantenimientos){
+            data[i][0] = mantenimiento.getDescripcion();
+            data[i][1] = mantenimiento.getEstatus();
             data[i][2] = "d";
             i++;
         }
         return data;
     }
+    
+    
+    public ArrayList<Mantenimiento> getListaMantenimientosCmb(){
+        if(listaMantenimientos == null)
+            listaMantenimientos = metodosMantenimiento.getMantenimientos();
+        return listaMantenimientos;
+    }    
     
     public Mantenimiento getMantenimientoEditar(int posicion){
         return listaMantenimientos.get(posicion);

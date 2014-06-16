@@ -73,8 +73,8 @@ public class UIUsuarios extends javax.swing.JPanel {
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_administrarUsuarios)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbl_administrarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnl_tituloLayout.setVerticalGroup(
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +197,7 @@ public class UIUsuarios extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_content, javax.swing.GroupLayout.PREFERRED_SIZE, 308, Short.MAX_VALUE)
+                .addComponent(pnl_content, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -209,7 +209,7 @@ public class UIUsuarios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_usuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+            .addComponent(pnl_usuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -218,7 +218,7 @@ public class UIUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_atrasActionPerformed
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        
+        padre.uiAgregarUsuario.setModoAgregar();
         padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
     }//GEN-LAST:event_btn_agregarActionPerformed
 

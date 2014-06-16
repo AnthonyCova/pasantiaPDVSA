@@ -155,6 +155,10 @@ public class Conexion {
         try {
             Statement st = (Statement) this.conn.createStatement();
             resultado =st.executeUpdate(inserta,Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()){
+                resultado=rs.getInt(1);
+            }
             return resultado;
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

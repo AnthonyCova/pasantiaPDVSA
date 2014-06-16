@@ -6,7 +6,15 @@
 
 package sisup.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import sisup.controladores.ReportesControlador;
 
 /**
  *
@@ -199,13 +207,10 @@ public class UIGenerarReporte extends javax.swing.JPanel {
 
         tbl_reportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Fecha", "Hora Parada", "Hora Arranque", "Descripción", "Tipo Mantenimiento"
+                "Fecha", "Bomba", "Tiempo Inactiva", "Mantenimiento", "Reporta"
             }
         ));
         jScrollPane2.setViewportView(tbl_reportes);
@@ -269,7 +274,7 @@ public class UIGenerarReporte extends javax.swing.JPanel {
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         pnl_tablaReportes.setVisible(true);
         btn_generarPDF.setVisible(true);
-        btn_cerrar.setVisible(true);
+        buscarReportes();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void ftf_fechaHastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftf_fechaHastaActionPerformed
@@ -277,6 +282,10 @@ public class UIGenerarReporte extends javax.swing.JPanel {
     }//GEN-LAST:event_ftf_fechaHastaActionPerformed
 
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
+        this.pnl_tablaReportes.setVisible(false);
+        this.ftf_fechaDesde.setText("DD/MM/AAAA");
+        this.ftf_fechaHasta.setText("DD/MM/AAAA");
+        this.btn_generarPDF.setVisible(false);
         padre.cambiapanel(UIDashboard.enm_paneles.UIDASHBOARD);
     }//GEN-LAST:event_btn_cerrarActionPerformed
 
@@ -306,6 +315,16 @@ public class UIGenerarReporte extends javax.swing.JPanel {
     private void inicializarElementos() {
         pnl_tablaReportes.setVisible(false);
         btn_generarPDF.setVisible(false);
-        btn_cerrar.setVisible(false);
+    }
+
+    public void buscarReportes() {
+
+        Object[][] data = padre.reportesControlador.buscarReportes(this.ftf_fechaDesde.getText(),this.ftf_fechaHasta.getText());
+      
+        DefaultTableModel modeloDeLaTabla=(DefaultTableModel)this.tbl_reportes.getModel();
+        for(int i=0; i<data.length;i++)
+            modeloDeLaTabla.addRow(data[i]);
+        this.tbl_reportes.setModel(modeloDeLaTabla);
+        this.pnl_tablaReportes.setVisible(true);
     }
 }

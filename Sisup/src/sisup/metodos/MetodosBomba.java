@@ -11,7 +11,7 @@ package sisup.metodos;
 public class MetodosBomba {
     
     public  int setBomba(sisup.clases.Bomba bomba){
-        int resultado = sisup.baseDatos.Consultas.insertarBomba(bomba.getTag(), bomba.getDescripcionTag(), bomba.getEstatus(), bomba.getHoraArranque());
+        int resultado = sisup.baseDatos.Consultas.insertarBomba(bomba.getTag(), bomba.getDescripcionTag(), bomba.getEstatus(), bomba.getHoraArranque(), bomba.getSenal());
         return resultado;
 
     }

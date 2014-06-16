@@ -55,9 +55,10 @@ public class UIMantenimientos extends javax.swing.JPanel {
 
         pnl_mantenimientos.setBackground(null);
         pnl_mantenimientos.setOpaque(false);
-        pnl_mantenimientos.setPreferredSize(new java.awt.Dimension(820, 460));
+        pnl_mantenimientos.setPreferredSize(new java.awt.Dimension(780, 313));
 
         pnl_titulo.setOpaque(false);
+        pnl_titulo.setPreferredSize(new java.awt.Dimension(154, 43));
 
         lbl_administrarTiposMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sisup/recursos/mantenimiento.png"))); // NOI18N
         lbl_administrarTiposMantenimiento.setText("Administrar Tipos de Mantenimiento");
@@ -68,15 +69,14 @@ public class UIMantenimientos extends javax.swing.JPanel {
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_administrarTiposMantenimiento)
-                .addContainerGap(575, Short.MAX_VALUE))
+                .addComponent(lbl_administrarTiposMantenimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnl_tituloLayout.setVerticalGroup(
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_administrarTiposMantenimiento)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbl_administrarTiposMantenimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnl_accion.setOpaque(false);
@@ -118,7 +118,7 @@ public class UIMantenimientos extends javax.swing.JPanel {
         pnl_accionLayout.setHorizontalGroup(
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_accionLayout.createSequentialGroup()
-                .addContainerGap(565, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_agregarTipoMantenimiento)
                 .addGap(18, 18, 18)
                 .addComponent(btn_atras)
@@ -126,9 +126,11 @@ public class UIMantenimientos extends javax.swing.JPanel {
         );
         pnl_accionLayout.setVerticalGroup(
             pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btn_atras)
-                .addComponent(btn_agregarTipoMantenimiento))
+            .addGroup(pnl_accionLayout.createSequentialGroup()
+                .addGroup(pnl_accionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_atras)
+                    .addComponent(btn_agregarTipoMantenimiento))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pnl_tablaMantenimientos.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de mantenimientos"));
@@ -157,50 +159,52 @@ public class UIMantenimientos extends javax.swing.JPanel {
             pnl_tablaMantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_tablaMantenimientosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnl_tablaMantenimientosLayout.setVerticalGroup(
             pnl_tablaMantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_tablaMantenimientosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnl_mantenimientosLayout = new javax.swing.GroupLayout(pnl_mantenimientos);
         pnl_mantenimientos.setLayout(pnl_mantenimientosLayout);
         pnl_mantenimientosLayout.setHorizontalGroup(
             pnl_mantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_mantenimientosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_mantenimientosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_mantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnl_tablaMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGroup(pnl_mantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnl_tablaMantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnl_accion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnl_mantenimientosLayout.setVerticalGroup(
             pnl_mantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_mantenimientosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnl_accion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_tablaMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(175, 175, 175))
+                .addComponent(pnl_tablaMantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_mantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnl_mantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_mantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnl_mantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -209,6 +213,7 @@ public class UIMantenimientos extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_atrasActionPerformed
 
     private void btn_agregarTipoMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarTipoMantenimientoActionPerformed
+        padre.uiAgregarTipoMantenimiento.setModoAgregar();
         padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARTIPOMANTENIMIENTO);
     }//GEN-LAST:event_btn_agregarTipoMantenimientoActionPerformed
 
@@ -248,11 +253,11 @@ public class UIMantenimientos extends javax.swing.JPanel {
                     String var = table.getModel().getValueAt(modelRow, 0).toString();
                     String ac = e.getActionCommand();
                     padre.uiAgregarTipoMantenimiento.setModoEditar(mantenimientos.getMantenimientoEditar(modelRow));
-                    padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARUSUARIO);
+                    padre.cambiapanel(UIDashboard.enm_paneles.UIAGREGARTIPOMANTENIMIENTO);
                 }
             };
 
-            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 4);
+            ButtonColumn buttonColumn = new ButtonColumn(table2, delete, 2);
             buttonColumn.setMnemonic(KeyEvent.VK_D);
 
             JScrollPane scroll = new JScrollPane(table2);
