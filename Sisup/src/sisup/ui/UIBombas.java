@@ -243,6 +243,7 @@ public class UIBombas extends javax.swing.JPanel {
     BombasControlador bombasControlador;
     
     public void CargarTablaBombas() {
+        pnl_listadoBombas.removeAll();
         if (bombasControlador == null) bombasControlador = new BombasControlador();
 
         Object[][] data = bombasControlador.getListaBombas();

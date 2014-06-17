@@ -496,6 +496,7 @@ public class UIDashboard extends javax.swing.JFrame {
     }
     
     public void CargarTablaFallas() {
+        pnl_tabla.removeAll();
         if (reportesControlador == null) reportesControlador = new ReportesControlador();
 
         Object[][] data = reportesControlador.getListaBombasParadas();

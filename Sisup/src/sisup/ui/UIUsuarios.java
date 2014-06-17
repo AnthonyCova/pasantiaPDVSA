@@ -237,6 +237,7 @@ public class UIUsuarios extends javax.swing.JPanel {
     
 
     public void CargarTablaUsuarios() {
+        pnl_content.removeAll();
         if (usuarios == null) usuarios = new UsuariosControlador();
 
         Object[][] data = usuarios.getListaUsuarios();

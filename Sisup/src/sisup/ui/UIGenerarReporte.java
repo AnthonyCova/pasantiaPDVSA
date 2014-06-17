@@ -6,15 +6,8 @@
 
 package sisup.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import sisup.controladores.ReportesControlador;
 
 /**
  *

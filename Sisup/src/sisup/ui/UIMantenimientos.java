@@ -233,6 +233,7 @@ public class UIMantenimientos extends javax.swing.JPanel {
     Mantenimientos mantenimientos;
     
     public void CargarTablaMantenimientos() {
+        pnl_tablaMantenimientos.removeAll();
         if (mantenimientos == null) mantenimientos = new Mantenimientos();
 
         Object[][] data = mantenimientos.getListaMantenimientos();
