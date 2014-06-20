@@ -28,15 +28,15 @@ public class Logica {
             if (html != null && !html.equalsIgnoreCase("")) {
                 k = html;
             }
-            OutputStream file = new FileOutputStream(new File("C:\\Reporte.pdf"));
-            Document document = new Document();
-            PdfWriter writer = PdfWriter.getInstance(document, file);
-            document.open();
-            InputStream is = new ByteArrayInputStream(k.getBytes());
-            XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-            document.close();
-            file.close();
-            file.close();
+            try (OutputStream file = new FileOutputStream(new File("C:\\Reporte.pdf"))) {
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.getInstance(document, file);
+                document.open();
+                InputStream is = new ByteArrayInputStream(k.getBytes());
+                XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
+                document.close();
+            }
+            
         } catch (DocumentException | IOException e) {
             System.out.println(e.getMessage());
 
